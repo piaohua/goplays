@@ -1,0 +1,46 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "oxWdStqmvbu7mOHNM0YQS9XdSzI=",
+			"path": "github.com/AsynkronIT/goconsole",
+			"revision": "bfa12eebf7161a928e20d11a627cc689e99e2e50",
+			"revisionTime": "2016-05-04T19:26:49Z"
+		},
+		{
+			"checksumSHA1": "MzbWfSQkihhyBIPMq3rCuXrucco=",
+			"path": "github.com/AsynkronIT/protoactor-go",
+			"revision": "534bab234fb6a34de894e38bec442806f9d12607",
+			"revisionTime": "2018-01-24T02:21:47Z",
+			"tree": true
+		},
+		{
+			"checksumSHA1": "7EbLS7Ocv73TNGyMiFdpIaiNvv4=",
+			"path": "github.com/PuerkitoBio/goquery",
+			"revision": "a41cf096e64e3752d7683898d5746bc0b98ee213",
+			"revisionTime": "2018-01-11T13:54:59Z"
+		},
+		{
+			"checksumSHA1": "sYehNTklKrVo9Zfm4cc4FeZHKwo=",
+			"path": "github.com/gogo/protobuf",
+			"revision": "100ba4e885062801d56799d78530b73b178a78f3",
+			"revisionTime": "2017-03-07T18:04:53Z",
+			"tree": true
+		},
+		{
+			"checksumSHA1": "50J+ClsLONoc78uu+sDrdJ6IWPA=",
+			"path": "github.com/json-iterator/go",
+			"revision": "96fcb84835b0447f3de9d7addb313c5487071533",
+			"revisionTime": "2017-12-23T02:52:17Z"
+		},
+		{
+			"checksumSHA1": "3HdhaqMqoMSbUVly/J0iYnhS2MI=",
+			"path": "github.com/valyala/fasthttp",
+			"revision": "70ceaddfae639b5f0eca290382de18f64d5aa62d",
+			"revisionTime": "2017-10-18T12:53:05Z",
+			"tree": true
+		}
+	],
+	"rootPath": "goplays"
+}

@@ -1,0 +1,354 @@
+#!/bin/bash
+
+set -e
+
+usage() {
+    echo " ./ctrl cmd "
+    echo " cmd : build (hall|login|gate|dbms|robot) (linux) (1|2)"
+    echo " cmd : start (gate|robot) -node=1 "
+    echo " cmd : start (hall|dbms|login|...) "
+    echo " cmd : start (huiyin|...) "
+    echo " cmd : status (hall|login|gate|dbms|robot) "
+    echo " cmd : stop (hall|login|gate|dbms|robot) "
+    echo " cmd : restart, sync, proto, bb "
+}
+
+appName=goplays
+
+workDir=$(cd `dirname $0`; pwd)
+
+cd $workDir
+
+GOPATH=$(cd ../../../"$(dirname "$0")"; pwd)
+
+SUI_SRC_DIR="${GOPATH}/src/${appName}"
+
+PROTO_SRC="${SUI_SRC_DIR}/protocol"
+MSGDIR="${SUI_SRC_DIR}/pb"
+LOGFILE="${workDir}/ctrl.log"
+
+PBJS=~/data/js/node_modules/protobufjs/bin/pbjs
+
+get_curr_time() {
+    echo `date +"%Y-%m-%d %H:%M:%S"`
+}
+
+save_log() {
+    echo "" >> ${LOGFILE}
+    echo "Time: "`get_curr_time`"   $1 " >> ${LOGFILE}
+}
+
+get_src_file() {
+    if [[ ! -d ${SUI_SRC_DIR}/$1 ]]; then
+        echo ""
+    else
+        echo ${appName}/$1
+    fi
+}
+
+get_bin_file() {
+    echo ${workDir}/$1-bin
+}
+
+get_pid_file() {
+    echo ${workDir}/$1-bin.pid
+}
+
+get_pid() {
+    binFile=`get_bin_file $1`
+    if [[ ${binFile} == '' ]]; then
+        return 1
+    fi
+    ps aux | grep '${binFile}' | grep -v grep | awk '{print $2}' | head -1
+}
+
+# 生成协议
+proto() {
+    if [[ ! -d ${PROTO_SRC} ]]; then
+        echo "协议文件路径不存在"
+        exit 1
+    fi
+    export GOPATH=${GOPATH}
+    cd ${PROTO_SRC}
+    protoc -I=. -I=${GOPATH}/src --gogoslick_out=plugins=grpc:${MSGDIR} *.proto
+    cd ${SUI_SRC_DIR}/tool
+    go run gen.go
+}
+
+# 生成协议
+protojson() {
+    if [[ ! -d ${PROTO_SRC} ]]; then
+        echo "协议文件路径不存在"
+        exit 1
+    fi
+    cd ${PROTO_SRC}
+    #
+    ${PBJS} -t json game_buy.proto game_chat.proto \
+    game_code.proto game_login.proto game_user.proto \
+    huiyin_room.proto huiyin_user.proto pub_huiyin.proto \
+    pub_module.proto \
+    > ../pbjson/bundle.json
+    #
+    cp game_*.proto ../pbjson/
+    cp huiyin_*.proto ../pbjson/
+    cp pub_*.proto ../pbjson/
+    #
+    cd ${SUI_SRC_DIR}/tool
+    go run gen.go
+    #
+    cp ../tool/MsgID.js ../pbjson/
+    cp ../tool/MsgID.json ../pbjson/
+    #
+    cd ../
+    zip -r pbjson.zip pbjson/
+}
+
+build() {
+    export GOPATH=${GOPATH}
+    # 不同节点生成不同bin文件(gate1-bin)
+    # TODO 优化
+    binFile=`get_bin_file $1$3`
+    srcFile=`get_src_file $1`
+    if [[ ${binFile} == '' ]]; then
+        echo "未指定输出文件"
+        exit 1
+    fi
+    if [[ ! -d ${GOPATH}/src/${srcFile} ]]; then
+        echo "目录不存在"
+        exit 1
+    fi
+    case $2 in
+        linux)
+            export CGO_ENABLED=0
+            export GOOS=linux
+            export GOARCH=amd64
+            export GOPATH=${GOPATH}
+            echo -n "LINUX版本 ... "
+            save_log "LINUX版本 ... "
+            ;;
+        windows)
+            export CGO_ENABLED=0
+            export GOOS=windows
+            export GOARCH=amd64
+            export GOPATH=${GOPATH}
+            echo -n "WINDOWS版本 ... "
+            save_log "WINDOWS版本 ... "
+            ;;
+    esac
+    echo "${srcFile}编译中 ... "
+    save_log "${srcFile}编译中 ... "
+    go build -o ${binFile} -ldflags "-w -s" ${srcFile}
+}
+
+start() {
+    pidFile=`get_pid_file $1`
+    if [[ -e ${pidFile} ]]; then
+        pid=`cat ${pidFile}`
+    else
+        pid=`get_pid $1`
+        if [[ $? -gt 0 ]]; then
+            echo "失败, 执行文件不存在"
+            exit 1
+        fi
+    fi
+    if [ "$pid" != '' ]; then
+        echo "服务正在运行中, 进程ID为${pid}"
+    else
+        binFile=`get_bin_file $1`
+        if [[ ! -e ${binFile} ]]; then
+            echo "执行BIN文件不存在"
+            exit 1
+        fi
+        if [[ ${pidFile} == '' ]]; then
+            echo "未指定输出PID文件"
+            exit 1
+        fi
+        if [[ ${1} == '' ]]; then
+            echo "未指定输出日志文件"
+            exit 1
+        fi
+        echo -n "正在启动 ... "
+        save_log "正在启动 ${binFile} ${2} ... "
+        # $2 as -node="1"
+        #ulimit -HSn 65535
+        #${binFile} -log_dir="logs" $2 > $1.log 2>&1 &
+        ${binFile} -log_dir="logs" -stderrthreshold="INFO" $2 >& $1.log &
+        echo $! > ${pidFile}
+        pid=`cat ${pidFile}`
+        save_log "${binFile} started ${pid} ... "
+        sleep 3s
+        status $1
+    fi
+}
+
+status() {
+    pidFile=`get_pid_file $1`
+    if [[ -e ${pidFile} ]]; then
+        pid=`cat ${pidFile}`
+    else
+        pid=`get_pid $1`
+        if [[ $? -gt 0 ]]; then
+            echo "失败, 执行文件不存在"
+            exit 1
+        fi
+    fi
+    if [[ -z "$pid" ]]; then
+        echo "服务不在运行状态"
+        exit 1
+    fi
+    exists=$(ps -ef | grep $pid | grep -v grep | wc -l)
+    if [[ $exists -gt 0 ]]; then
+        echo "服务正在运行中, 进程ID为${pid}"
+    else
+        echo "服务不在运行状态, 但进程ID文件存在"
+    fi
+}
+
+stop() {
+    pidFile=`get_pid_file $1`
+    if [[ -e ${pidFile} ]]; then
+        pid=`cat ${pidFile}`
+        #rm -f $pidFile
+        mv -f $pidFile $pidFile"_bak"
+    else
+        pid=`get_pid $1`
+        if [[ $? -gt 0 ]]; then
+            echo "失败, 执行文件不存在"
+            exit 1
+        fi
+    fi
+    if [ "$pid" != '' ]; then
+        echo -n "正在停止 ... "
+        save_log "${pidFile} 正在停止 ${pid} ... "
+        #kill -9 $PID
+        kill -2 $pid
+        sleep 15s
+        echo "$pid killed!"
+        save_log "${pid} killed! "
+    else
+        echo "服务不在运行状态"
+    fi
+}
+
+restart() {
+    echo -n "正在重启 ... "
+    stop $1
+    sleep 1s
+    start $1 $2
+}
+
+# 同步更新
+sync2() {
+    binFile=`get_bin_file $1`
+    ~/data/ssh scp-up 8 ${binFile} /data/
+}
+
+# 同步更新
+sync3() {
+    binFile=`get_bin_file $1`
+    ~/data/ssh scp-up 11 ${binFile} /home/
+}
+
+sync() {
+    sync2 hall
+    sync2 login
+    sync2 dbms
+    sync2 gate
+    sync2 robot
+}
+
+ss() {
+    sync3 hall
+    sync3 login
+    sync3 dbms
+    sync3 gate
+    sync3 huiyin
+    sync3 robot
+}
+
+# 编译
+bb() {
+    case $1 in
+        linux)
+            build hall linux
+            build login linux
+            build dbms linux
+            #build gate linux
+            build gate2 linux
+            #build huiyin linux
+            build huiyin linux 1
+            build huiyin linux 2
+            build robot linux
+            build web linux
+            ;;
+        *)
+            build hall
+            build login
+            build dbms
+            build gate
+            build gate2
+            build huiyin
+            build robot
+            build web
+            ;;
+    esac
+}
+
+start_all() {
+    start hall
+    start dbms
+    start gate -node=1
+    start huiyin -node=1
+    start login
+    start robot -node=1
+}
+
+stop_all() {
+    stop robot -node=1
+    stop login
+    stop huiyin -node=1
+    stop gate -node=1
+    stop dbms
+    stop hall
+}
+
+show() {
+    #ps -ef | grep -v grep | grep robot-bin
+    ps -ef | grep -v grep | grep login-bin
+    #ps -ef | grep -v grep | grep huiyin-bin
+    ps -ef | grep -v grep | grep huiyin
+    ps -ef | grep -v grep | grep gate-bin
+    ps -ef | grep -v grep | grep dbms-bin
+    ps -ef | grep -v grep | grep hall-bin
+}
+
+case $1 in
+    build)
+        build $2 $3 $4;;
+    bb)
+        bb $2;;
+    start)
+        start $2 $3;;
+    status)
+        status $2;;
+    show)
+        show $2;;
+    stop)
+        stop $2;;
+    restart)
+        restart $2 $3;;
+    sync)
+        sync;;
+    ss)
+        ss;;
+    send)
+        sync3 $2;;
+    proto)
+        proto;;
+    protojson)
+        protojson;;
+    startall)
+        start_all;;
+    *)
+        usage;;
+esac
