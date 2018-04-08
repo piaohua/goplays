@@ -10,6 +10,7 @@ package main
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"sync"
 
 	"goplays/data"
 	"goplays/glog"
@@ -248,6 +249,141 @@ func (c *Robot) betValue() (val uint32) {
 		val = 10
 	}
 	return
+}
+
+//.
+
+//' 新的下注规则
+
+//下注限制管理, TODO 优化在房间内主动限制
+type RobotBet struct {
+	sync.Mutex //互斥锁
+	//
+	state uint32 //状态
+	//
+	RoomBets map[string]int64  //房间已经下注数量
+	RoomType map[string]uint32 //房间类型
+	BetLimit map[string]int64  //房间下注限制数量
+}
+
+var rbet *RobotBet
+
+func init() {
+	rbet = new(RobotBet)
+	rbet.RoomBets = make(map[string]int64)
+	rbet.RoomType = make(map[string]uint32)
+	rbet.BetLimit = make(map[string]int64)
+}
+
+func (r *RobotBet) SetRoom(list []*pb.HuiYinRoom) {
+	r.Lock()
+	defer r.Unlock()
+	for _, v := range list {
+		roomid := v.GetInfo().Roomid
+		rtype := v.GetInfo().Rtype
+		if _, ok := r.RoomType[roomid]; !ok {
+			r.RoomType[roomid] = rtype
+			r.RoomBets[roomid] = 0
+			r.BetLimit[roomid] = 0
+		}
+	}
+}
+
+func (r *RobotBet) SetBet(roomid string, value int64) bool {
+	r.Lock()
+	defer r.Unlock()
+	r.RoomBets[roomid] += value
+	return r.RoomBets[roomid] >= r.BetLimit[roomid]
+}
+
+func (r *RobotBet) SetState() {
+	r.Lock()
+	defer r.Unlock()
+	r.state = data.STATE_BET
+}
+
+func (r *RobotBet) Reset() {
+	r.Lock()
+	defer r.Unlock()
+	if r.state == data.STATE_OVER {
+		return
+	}
+	r.RoomBets = make(map[string]int64)
+	//重置限制
+	for k, v := range r.RoomType {
+		switch v {
+		case data.ROOM_TYPE0:
+			r.BetLimit[k] = int64(betNum0[utils.RandIntN(len(betNum0))])
+		case data.ROOM_TYPE1:
+			r.BetLimit[k] = int64(betNum1[utils.RandIntN(len(betNum1))])
+		}
+	}
+	r.state = data.STATE_OVER
+}
+
+// 玩家下注限制
+var betNum0 = []uint32{10000, 10080, 10100, 10500, 10800, 11000, 11200, 11400, 11800, 12000, 12400, 12600, 13000, 13200, 13500, 13800, 14600, 15000}
+var betNum1 = []uint32{1000, 1200, 1500, 1800, 2500, 2600, 3000, 3200, 3600, 3800, 4200, 4600, 4800, 5000, 5500, 6800, 5800, 6300, 6500, 7000}
+var bet0 = []uint32{3000, 100, 1000, 500}
+var bet1 = []uint32{50, 100, 10, 1000, 500}
+
+//开始下注
+func (r *Robot) SendRoomBet4() {
+	//达到下注限制,TODO 优化，只有在房间内才能真正限制到
+	if rbet.SetBet(r.roomid, 0) {
+		return
+	}
+	switch r.rtype {
+	case data.ROOM_TYPE0: //免佣
+		//随机下注次数
+		r.bits = 1
+	case data.ROOM_TYPE1: //抽佣
+		//随机下注次数
+		r.bits = uint32(utils.RandIntN(5) + 1)
+	default:
+		r.SendStandup()
+	}
+	if r.betSeat == 0 {
+		r.setBetSeat() // 位置固定
+	}
+	r.SendRoomBet5()
+}
+
+func (r *Robot) SendRoomBet5() {
+	val := r.getBetVal()
+	if val == 0 {
+		return
+	}
+	ctos := &pb.CHuiYinRoomBet{
+		Value:   val,
+		Seatbet: r.betSeat,
+	}
+	var t1 int = utils.RandIntN(10) + 1 //随机
+	utils.Sleep(t1)
+	r.Sender(ctos)
+}
+
+// 玩家选择下注金额
+func (r *Robot) getBetVal() uint32 {
+	var c1 []uint32
+	switch r.rtype {
+	case data.ROOM_TYPE0: //免佣
+		for _, v := range bet0 {
+			if r.data.Chip > int64(v) {
+				c1 = append(c1, v)
+			}
+		}
+	case data.ROOM_TYPE1: //抽佣
+		for _, v := range bet1 {
+			if r.data.Chip > int64(v) {
+				c1 = append(c1, v)
+			}
+		}
+	}
+	if len(c1) == 0 {
+		return 0
+	}
+	return c1[utils.RandIntN(len(c1))] //随机
 }
 
 //.

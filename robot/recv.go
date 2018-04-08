@@ -45,6 +45,7 @@ func (r *Robot) receive(msg interface{}) {
 	case *pb.SPing:
 		//glog.Debugf("pong : %#v", msg)
 	case *pb.SHuiYinPushDealer:
+		r.recvDealer(msg.(*pb.SHuiYinPushDealer))
 	default:
 		glog.Errorf("unknow message: %#v", msg)
 	}
@@ -150,6 +151,7 @@ func (r *Robot) recvRoomList(stoc *pb.SHuiYinRoomList) {
 		roomid := v.GetInfo().Roomid
 		RegistRoom(roomid, r.ltype)
 	}
+	rbet.SetRoom(list)
 	if r.roomid != "" {
 		r.SendEntryRoom(r.roomid)
 	} else {
@@ -202,7 +204,8 @@ func (r *Robot) recvComein(stoc *pb.SHuiYinEnterRoom) {
 		glog.Debugf("comein desk state -> %d", roominfo.State)
 		switch roominfo.State {
 		case data.STATE_BET:
-			r.SendRoomBet()
+			//r.SendRoomBet()
+			r.SendRoomBet4()
 		}
 	default:
 		glog.Infof("comein err -> %d", errcode)
@@ -246,18 +249,25 @@ func (r *Robot) recvBet(stoc *pb.SHuiYinRoomBet) {
 	var errcode = stoc.GetError()
 	var userid string = stoc.GetUserid()
 	if userid != r.data.Userid {
-		//return
+		//TODO 有人下注时才下注
+		return
 	}
 	glog.Debugf("bet userid %s, errcode %d", userid, errcode)
 	switch errcode {
 	case pb.OK:
-		if r.bits > 0 && r.bitNum > 0 {
-			r.SendRoomBet()
+		if userid == r.data.Userid {
+			//下注成功检测限制
+			if rbet.SetBet(r.roomid, int64(stoc.GetValue())) {
+				//达到限制条件停止下注
+				return
+			}
+		}
+		//if r.bits > 0 && r.bitNum > 0 {
+		if r.bits > 0 {
+			//r.SendRoomBet()
+			r.SendRoomBet4()
 		}
 	default:
-		if userid != r.data.Userid {
-			return
-		}
 		r.SendStandup()
 	}
 }
@@ -271,14 +281,40 @@ func (r *Robot) recvGamestate(stoc *pb.SHuiYinDeskState) {
 		r.SendStandup()
 	case data.STATE_BET:
 		//随机下注次数
-		r.bits = uint32(utils.RandInt32N(20) + 1)
-		r.bitNum = uint32(utils.RandInt32N(7) * 500)
-		r.SendRoomBet() //下注
+		//r.bits = uint32(utils.RandInt32N(20) + 1)
+		//r.bitNum = uint32(utils.RandInt32N(7) * 500)
+		//r.SendRoomBet() //下注
+		rbet.SetState()
+		r.SendRoomBet4() //下注
 	case data.STATE_SEAL:
 	case data.STATE_OVER:
+		rbet.Reset()  //重置
+		r.betSeat = 0 //重置
 	default:
 		r.SendStandup()
 	}
+}
+
+//庄家位置
+func (r *Robot) recvDealer(stoc *pb.SHuiYinPushDealer) {
+	r.dealerSeat = stoc.GetSeat()
+	r.setBetSeat()
+}
+
+//下注位置
+func (r *Robot) setBetSeat() {
+	//TODO 选择多个自己下注位置
+	var a1 = []uint32{1, 2, 3, 4, 5}
+	if r.dealerSeat != 0 {
+		for k, v := range a1 {
+			//庄家位置过滤掉
+			if v == r.dealerSeat {
+				a1 = append(a1[:k], a1[k+1:]...)
+				break
+			}
+		}
+	}
+	r.betSeat = a1[utils.RandIntN(len(a1))] //随机
 }
 
 //结束

@@ -55,6 +55,9 @@ type Robot struct {
 	bitNum uint32 //尝试下注数量
 	regist bool   //注册标识
 	timer  uint32 //在线时间
+	//
+	dealerSeat uint32 //庄家位置
+	betSeat    uint32 //下注位置
 }
 
 // 基本数据
