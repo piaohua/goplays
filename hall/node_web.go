@@ -115,7 +115,7 @@ func (a *HallActor) HandlerWeb(arg *pb.WebRequest,
 //广播所有节点,游戏逻辑服,dbms
 func (a *HallActor) broadcast(msg interface{}, ctx actor.Context) {
 	for k, v := range a.serve {
-		if strings.Contains(k, "dbms.") ||
+		if strings.Contains(k, "dbms") ||
 			strings.Contains(k, "gate.") ||
 			strings.Contains(k, "game.") {
 			v.Tell(msg)

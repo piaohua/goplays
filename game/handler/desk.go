@@ -53,6 +53,7 @@ func NewDeskData(d *data.Game) *data.DeskData {
 		Cost:   d.Cost,
 		Vip:    d.Vip,
 		Chip:   d.Chip,
+		Deal:   d.Deal,
 		Carry:  d.Carry,
 		Down:   d.Down,
 		Sit:    d.Sit,

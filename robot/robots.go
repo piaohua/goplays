@@ -321,7 +321,7 @@ func (r *RobotServer) run() {
 				} else {
 					r.offline[msg.Phone] = true
 				}
-				if _, ok := r.rooms[msg.Roomid]; ok {
+				if v, ok := r.rooms[msg.Roomid]; ok && v > 0 {
 					r.rooms[msg.Roomid] -= 1
 				}
 			case *pb.RobotStop:
