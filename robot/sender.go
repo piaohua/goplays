@@ -10,6 +10,7 @@ package main
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"math"
 	"sync"
 
 	"goplays/data"
@@ -264,6 +265,8 @@ type RobotBet struct {
 	RoomBets map[string]int64  //房间已经下注数量
 	RoomType map[string]uint32 //房间类型
 	BetLimit map[string]int64  //房间下注限制数量
+	//
+	percent float64 //百分比
 }
 
 var rbet *RobotBet
@@ -273,6 +276,7 @@ func init() {
 	rbet.RoomBets = make(map[string]int64)
 	rbet.RoomType = make(map[string]uint32)
 	rbet.BetLimit = make(map[string]int64)
+	rbet.percent = 60
 }
 
 func (r *RobotBet) SetRoom(list []*pb.HuiYinRoom) {
@@ -293,13 +297,19 @@ func (r *RobotBet) SetBet(roomid string, value int64) bool {
 	r.Lock()
 	defer r.Unlock()
 	r.RoomBets[roomid] += value
-	return r.RoomBets[roomid] >= r.BetLimit[roomid]
+	return r.RoomBets[roomid] >= int64(math.Ceil(float64(r.BetLimit[roomid])*r.percent/100))
 }
 
 func (r *RobotBet) SetState() {
 	r.Lock()
 	defer r.Unlock()
 	r.state = data.STATE_BET
+}
+
+func (r *RobotBet) SetPercent(num float64) {
+	r.Lock()
+	defer r.Unlock()
+	r.percent = num
 }
 
 func (r *RobotBet) Reset() {
@@ -319,6 +329,7 @@ func (r *RobotBet) Reset() {
 		}
 	}
 	r.state = data.STATE_OVER
+	r.percent = 60
 }
 
 // 玩家下注限制
@@ -327,12 +338,7 @@ var betNum1 = []uint32{1000, 1200, 1500, 1800, 2500, 2600, 3000, 3200, 3600, 380
 var bet0 = []uint32{3000, 100, 1000, 500}
 var bet1 = []uint32{50, 100, 10, 1000, 500}
 
-//开始下注
-func (r *Robot) SendRoomBet4() {
-	//达到下注限制,TODO 优化，只有在房间内才能真正限制到
-	if rbet.SetBet(r.roomid, 0) {
-		return
-	}
+func (r *Robot) setBits() bool {
 	switch r.rtype {
 	case data.ROOM_TYPE0: //免佣
 		//随机下注次数
@@ -342,6 +348,19 @@ func (r *Robot) SendRoomBet4() {
 		r.bits = uint32(utils.RandIntN(5) + 1)
 	default:
 		r.SendStandup()
+		return false
+	}
+	return true
+}
+
+//开始下注
+func (r *Robot) SendRoomBet4() {
+	//达到下注限制,TODO 优化，只有在房间内才能真正限制到
+	if rbet.SetBet(r.roomid, 0) {
+		return
+	}
+	if !r.setBits() {
+		return
 	}
 	if r.betSeat == 0 {
 		r.setBetSeat() // 位置固定

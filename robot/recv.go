@@ -43,6 +43,7 @@ func (r *Robot) receive(msg interface{}) {
 	case *pb.SHuiYinGameover:
 		r.recvGameover(msg.(*pb.SHuiYinGameover))
 	case *pb.SPing:
+		r.recvPing(msg.(*pb.SPing))
 		//glog.Debugf("pong : %#v", msg)
 	case *pb.SHuiYinPushDealer:
 		r.recvDealer(msg.(*pb.SHuiYinPushDealer))
@@ -168,6 +169,20 @@ func (r *Robot) recvRoomList(stoc *pb.SHuiYinRoomList) {
 	}
 }
 
+//游戏
+func (r *Robot) recvPing(stoc *pb.SPing) {
+	//TODO 暂时用这个协议控制机器人下注,添加新协议替换
+	if stoc.GetTime() == 10 {
+		glog.Debugf("ping %s", r.data.Userid)
+		//设置100%全部下完
+		rbet.SetPercent(100)
+		if r.bits > 0 {
+			//r.SendRoomBet()
+			r.SendRoomBet4()
+		}
+	}
+}
+
 //.
 
 //' 离开房间
@@ -284,6 +299,10 @@ func (r *Robot) recvGamestate(stoc *pb.SHuiYinDeskState) {
 		//r.bits = uint32(utils.RandInt32N(20) + 1)
 		//r.bitNum = uint32(utils.RandInt32N(7) * 500)
 		//r.SendRoomBet() //下注
+		if !r.setBits() {
+			return
+		}
+		r.bitNum = 0
 		rbet.SetState()
 		r.SendRoomBet4() //下注
 	case data.STATE_SEAL:
@@ -320,7 +339,7 @@ func (r *Robot) setBetSeat() {
 //结束
 func (r *Robot) recvGameover(stoc *pb.SHuiYinGameover) {
 	r.round++
-	if r.round >= 2 { //打10局下线
+	if r.round >= 5 { //打10局下线
 		r.SendStandup()
 		return
 	}

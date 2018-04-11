@@ -277,7 +277,8 @@ bb() {
             build gate2 linux
             #build huiyin linux
             build huiyin linux 1
-            build huiyin linux 2
+            #build huiyin linux 2
+            #cp -f huiyin1-bin huiyin2-bin
             build robot linux
             build web linux
             ;;
@@ -313,9 +314,9 @@ stop_all() {
 }
 
 show() {
-    #ps -ef | grep -v grep | grep robot-bin
+    ps -ef | grep -v grep | grep robot-bin
     ps -ef | grep -v grep | grep login-bin
-    #ps -ef | grep -v grep | grep huiyin-bin
+    ps -ef | grep -v grep | grep huiyin-bin
     ps -ef | grep -v grep | grep huiyin
     ps -ef | grep -v grep | grep gate-bin
     ps -ef | grep -v grep | grep dbms-bin
