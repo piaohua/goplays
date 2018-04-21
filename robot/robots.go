@@ -319,7 +319,8 @@ func (r *RobotServer) run() {
 					//TODO 自动充值
 					//r.unused[msg.Phone] = msg.Chip
 				} else {
-					r.offline[msg.Phone] = true
+					//TODO 暂时不重复
+					//r.offline[msg.Phone] = true
 				}
 				if v, ok := r.rooms[msg.Roomid]; ok && v > 0 {
 					r.rooms[msg.Roomid] -= 1

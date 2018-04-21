@@ -220,7 +220,11 @@ func (r *Robot) recvComein(stoc *pb.SHuiYinEnterRoom) {
 		switch roominfo.State {
 		case data.STATE_BET:
 			//r.SendRoomBet()
-			r.SendRoomBet4()
+			go func() {
+				//延迟下注
+				utils.Sleep(5)
+				r.SendRoomBet4()
+			}()
 		}
 	default:
 		glog.Infof("comein err -> %d", errcode)
@@ -304,7 +308,12 @@ func (r *Robot) recvGamestate(stoc *pb.SHuiYinDeskState) {
 		}
 		r.bitNum = 0
 		rbet.SetState()
-		r.SendRoomBet4() //下注
+		//r.SendRoomBet4() //下注
+		go func() {
+			//延迟下注
+			utils.Sleep(8)
+			r.SendRoomBet4()
+		}()
 	case data.STATE_SEAL:
 	case data.STATE_OVER:
 		rbet.Reset()  //重置

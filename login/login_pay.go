@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"api/wxpay"
-	"goplay/glog"
+	"goplays/glog"
 	"goplays/pb"
 
 	"github.com/valyala/fasthttp"

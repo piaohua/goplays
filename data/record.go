@@ -286,4 +286,5 @@ type Winer struct {
 	Nickname string
 	Photo    string
 	Chip     int64 //赢利数量
+	Dealer   bool  //是否是庄家
 }

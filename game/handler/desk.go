@@ -56,6 +56,7 @@ func NewDeskData(d *data.Game) *data.DeskData {
 		Deal:   d.Deal,
 		Carry:  d.Carry,
 		Down:   d.Down,
+		Top:    d.Top,
 		Sit:    d.Sit,
 	}
 }
@@ -77,6 +78,7 @@ func SetGameList() {
 		Deal:   true,
 		Carry:  20000,
 		Down:   10000,
+		Top:    60000,
 		Sit:    20000,
 		Del:    1,
 		Ctime:  time.Now(),
@@ -96,6 +98,7 @@ func SetGameList() {
 		Deal:   true,
 		Carry:  20000,
 		Down:   10000,
+		Top:    60000,
 		Sit:    20000,
 		Del:    1,
 		Ctime:  time.Now(),
@@ -115,6 +118,7 @@ func SetGameList() {
 		Deal:   false, //无庄
 		Carry:  20000,
 		Down:   10000,
+		Top:    60000,
 		Sit:    20000,
 		Del:    0,
 		Node:   "game.huiyin1",
@@ -135,6 +139,7 @@ func SetGameList() {
 		Deal:   false, //无庄
 		Carry:  20000,
 		Down:   10000,
+		Top:    60000,
 		Sit:    20000,
 		Del:    0,
 		Node:   "game.huiyin1",
@@ -155,6 +160,7 @@ func SetGameList() {
 		Deal:   false, //有庄
 		Carry:  20000,
 		Down:   10000,
+		Top:    60000,
 		Sit:    20000,
 		Del:    0,
 		Node:   "game.huiyin2",
@@ -175,6 +181,7 @@ func SetGameList() {
 		Deal:   false, //有庄
 		Carry:  20000,
 		Down:   10000,
+		Top:    60000,
 		Sit:    20000,
 		Del:    0,
 		Node:   "game.huiyin2",

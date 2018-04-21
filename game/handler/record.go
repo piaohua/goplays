@@ -146,6 +146,7 @@ func GetHuiYinWiners(arg []*data.Winer) interface{} {
 			Nickname: v.Nickname,
 			Photo:    v.Photo,
 			Chip:     v.Chip,
+			Dealer:   v.Dealer,
 		}
 		msg2.List = append(msg2.List, d)
 	}

@@ -138,7 +138,6 @@ func (server *RobotServer) RunRobot(roomid, phone, code string, rtype, ltype uin
 	robot.readPump()
 
 	// cleanup
-	robot.Close()
 	server.mutexConns.Lock()
 	delete(server.conns, conn)
 	server.mutexConns.Unlock()

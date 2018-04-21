@@ -24,6 +24,7 @@ type Game struct {
 	Deal   bool      `bson:"deal" json:"deal"`     //房间是否可以上庄
 	Carry  uint32    `bson:"carry" json:"carry"`   //房间上庄最小携带筹码限制
 	Down   uint32    `bson:"down" json:"down"`     //房间下庄最小携带筹码限制
+	Top    uint32    `bson:"top" json:"Top"`       //房间下庄最大携带筹码限制
 	Sit    uint32    `bson:"sit" json:"sit"`       //房间内坐下限制
 	Del    int       `bson:"del" json:"del"`       //是否移除
 	Node   string    `bson:"node" json:"node"`     //所在节点(game.huiyin1|game.huiyin2)

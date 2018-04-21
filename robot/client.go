@@ -73,6 +73,9 @@ type user struct {
 	Vip      uint32 // vip
 }
 
+//通道关闭信号
+type closeFlag int
+
 //创建连接
 func newRobot(conn *websocket.Conn, pendingWriteNum int, maxMsgLen uint32) *Robot {
 	return &Robot{
@@ -92,10 +95,10 @@ func (ws *Robot) Close() {
 	case <-ws.stopCh:
 		return
 	default:
+		//关闭消息通道
+		ws.Sender(closeFlag(1))
 		//停止发送消息
 		close(ws.stopCh)
-		//关闭消息通道
-		close(ws.msgCh)
 		//关闭连接
 		ws.conn.Close()
 		//Logout message
@@ -139,7 +142,7 @@ func (ws *Robot) Sender(msg interface{}) {
 
 //时钟
 func (ws *Robot) ticker() {
-	tick := time.Tick(5 * time.Second)
+	tick := time.Tick(10 * time.Second)
 	for {
 		select {
 		case <-ws.stopCh:
@@ -245,6 +248,8 @@ func (ws *Robot) writePump() {
 func (ws *Robot) write(mt int, msg interface{}) error {
 	var message []byte
 	switch msg.(type) {
+	case closeFlag:
+		return errors.New("msg channel closed")
 	case []byte:
 		message = msg.([]byte)
 	default:

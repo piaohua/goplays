@@ -55,6 +55,7 @@ type DeskData struct {
 	Deal   bool   `json:"deal"`   //房间是否可以上庄
 	Carry  uint32 `json:"carry"`  //上庄携带限制
 	Down   uint32 `json:"down"`   //下庄携带限制
+	Top    uint32 `json:"top"`    //下庄最高携带限制
 	Sit    uint32 `json:"sit"`    //房间内坐下限制
 	Ctime  uint32 `json:"ctime"`  //创建时间
 	//Code   string `json:"code"`   //房间邀请码

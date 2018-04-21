@@ -40,13 +40,14 @@ func RoomBetMsg(seat, beseat, val uint32, chip,
 
 //上下庄消息
 func BeDealerMsg(state uint32, num int64, dealer,
-	userid, name string) interface{} {
+	userid, name string, down bool) interface{} {
 	return &pb.SHuiYinDealer{
 		State:    state,
 		Num:      num,
 		Userid:   userid,
 		Dealer:   dealer,
 		Nickname: name,
+		Down:     down,
 	}
 }
 
@@ -99,6 +100,7 @@ func PackGameInfo(d *data.DeskData) (r *pb.HuiYinGameInfo) {
 		Deal:   d.Deal,
 		Carry:  d.Carry,
 		Down:   d.Down,
+		Top:    d.Top,
 		Sit:    d.Sit,
 	}
 }
