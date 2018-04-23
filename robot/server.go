@@ -74,6 +74,11 @@ func (server *RobotServer) Start() {
 	//
 	go server.runPkFake()
 	go server.runFtFake()
+	//
+	//msg4 := &pb.RobotMsg{
+	//	Ltype: 1,
+	//}
+	//go Msg2Robots(msg4, 2)
 }
 
 //关闭连接
@@ -97,6 +102,7 @@ func (server *RobotServer) RunRobot(roomid, phone, code string, rtype, ltype uin
 	//host := getHost()
 	//TODO test
 	host := cfg.Section("gate.node2").Key("host").Value()
+	//host := "127.0.0.1:4107"
 	u := url.URL{Scheme: "ws", Host: host, Path: "/"}
 	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
@@ -135,6 +141,7 @@ func (server *RobotServer) RunRobot(roomid, phone, code string, rtype, ltype uin
 		go robot.SendLogin() //登录
 	}
 	go robot.ticker()
+	go robot.pingPump()
 	robot.readPump()
 
 	// cleanup

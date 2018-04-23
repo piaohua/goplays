@@ -149,6 +149,8 @@ type UserRecord struct {
 	Fee         int64           `bson:"fee"`     //抽佣
 	Details     []UseridDetails `bson:"details"`
 	Ctime       time.Time       `bson:"ctime"`
+	Dealerseat  uint32          `bson:"dealerseat"`
+	Dealer      string          `bson:"dealer"`
 }
 
 //个人详细结果

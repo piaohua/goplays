@@ -44,9 +44,11 @@ func GetHuiYinRecords(arg *pb.CHuiYinRecords) interface{} {
 	}
 	for _, v := range list {
 		d := &pb.HuiYinRecords{
-			Gtype: v.Gametype,
-			Rtype: v.Roomtype,
-			Rest:  v.Rest,
+			Gtype:      v.Gametype,
+			Rtype:      v.Roomtype,
+			Rest:       v.Rest,
+			Dealer:     v.Dealer,
+			Dealerseat: v.Dealerseat,
 		}
 		//个人结果
 		for _, val2 := range v.Details {
@@ -188,6 +190,8 @@ func Pk10UseridLog(arg *pb.Pk10UseridLog) {
 		Profits:     arg.Profits,
 		Fee:         arg.Fee,
 		Bets:        arg.Bets,
+		Dealerseat:  arg.Dealerseat,
+		Dealer:      arg.Dealer,
 	}
 	for _, v := range arg.Details {
 		d := data.UseridDetails{

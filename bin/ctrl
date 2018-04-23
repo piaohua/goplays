@@ -171,8 +171,9 @@ start() {
         save_log "正在启动 ${binFile} ${2} ... "
         # $2 as -node="1"
         #ulimit -HSn 65535
+        ulimit -HSn 1024
         #${binFile} -log_dir="logs" $2 > $1.log 2>&1 &
-        ${binFile} -log_dir="logs" -stderrthreshold="INFO" $2 >& $1.log &
+        ${binFile} -log_dir="logs" -stderrthreshold="DEBUG" $2 >& $1.log &
         echo $! > ${pidFile}
         pid=`cat ${pidFile}`
         save_log "${binFile} started ${pid} ... "

@@ -61,7 +61,7 @@ func (server *RobotServer) remoteHandler(message interface{}) {
 		msg := message.(*pb.RobotMsg)
 		//分配机器人
 		go Msg2Robots(msg, msg.Num)
-		glog.Infof("node msg -> %v", msg)
+		glog.Infof("node msg -> %#v", msg)
 	}
 }
 

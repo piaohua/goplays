@@ -73,6 +73,8 @@ type user struct {
 	Vip      uint32 // vip
 }
 
+type WSPING int
+
 //通道关闭信号
 type closeFlag int
 
@@ -129,7 +131,7 @@ func (ws *Robot) Sender(msg interface{}) {
 	}
 	select {
 	case <-ws.stopCh:
-		glog.Info("ticker closed")
+		glog.Info("sender closed")
 		return
 	default: //防止阻塞
 	}
@@ -220,26 +222,30 @@ func (ws *Robot) readPump() {
 
 //消息写入 TODO write Buff
 func (ws *Robot) writePump() {
-	tick := time.Tick(pingPeriod)
 	for {
-		select {
-		case <-tick:
-			err := ws.write(websocket.PingMessage, []byte{})
-			if err != nil {
-				return
-			}
-		default:
-		}
 		select {
 		case message, ok := <-ws.msgCh:
 			if !ok {
 				ws.write(websocket.CloseMessage, []byte{})
 				return
 			}
-			err := ws.write(websocket.TextMessage, message)
+			err := ws.write(websocket.BinaryMessage, message)
 			if err != nil {
 				return
 			}
+		}
+	}
+}
+
+//Send pings
+func (ws *Robot) pingPump() {
+	tick := time.Tick(pingPeriod)
+	for {
+		select {
+		case <-tick:
+			ws.Sender(WSPING(1))
+		case <-ws.stopCh:
+			return
 		}
 	}
 }
@@ -250,12 +256,15 @@ func (ws *Robot) write(mt int, msg interface{}) error {
 	switch msg.(type) {
 	case closeFlag:
 		return errors.New("msg channel closed")
+	case WSPING:
+		mt = websocket.PingMessage
+		message = nil
 	case []byte:
 		message = msg.([]byte)
 	default:
 		code, body, err := pb.Rpacket(msg)
 		if err != nil {
-			glog.Errorf("write msg err %v", msg)
+			glog.Errorf("write msg err %#v", msg)
 			return err
 		}
 		message = pack(code, body, ws.index)

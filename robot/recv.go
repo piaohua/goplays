@@ -90,6 +90,7 @@ func (r *Robot) recvLogin(stoc *pb.SLogin) {
 	default:
 		glog.Infof("login err -> %d", errcode)
 	}
+	glog.Infof("login err -> %d", errcode)
 	r.Close()
 }
 
@@ -121,8 +122,6 @@ func (r *Robot) recvdata(stoc *pb.SUserData) {
 	}
 	//获取游戏列表
 	r.SendGames()
-	//获取房间列表
-	r.SendRoomList()
 }
 
 //更新金币
@@ -142,6 +141,8 @@ func (r *Robot) recvPushCurrency(stoc *pb.SPushCurrency) {
 func (r *Robot) recvGames(stoc *pb.SHuiYinGames) {
 	//list := stoc.GetList()
 	//glog.Debugf("game list %#v, len %d", list, len(list))
+	//获取房间列表
+	r.SendRoomList()
 }
 
 //房间列表
@@ -153,9 +154,15 @@ func (r *Robot) recvRoomList(stoc *pb.SHuiYinRoomList) {
 		RegistRoom(roomid, r.ltype)
 	}
 	rbet.SetRoom(list)
+	//glog.Infof("roomid %s", r.roomid)
 	if r.roomid != "" {
 		r.SendEntryRoom(r.roomid)
+		//} else if r.roomid == "" && len(list) != 0 {
+		//	r.roomid = list[0].Info.Roomid
+		//	r.SendEntryRoom(list[0].Info.Roomid)
 	} else {
+		glog.Errorf("roomid not exist %s, phone %s, userid %s",
+			r.roomid, r.data.Phone, r.data.Userid)
 		r.Close() //下线
 		//for _, v := range list {
 		//	if v.GetInfo().Roomid != "" &&
