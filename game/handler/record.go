@@ -37,7 +37,9 @@ func GetHuiYinRecords(arg *pb.CHuiYinRecords) interface{} {
 	msg2 := new(pb.SHuiYinRecords)
 	userid := arg.Userid
 	page := arg.Page
-	list, us, ms, err2 := data.GetRecords(userid, int(page))
+	gtype := arg.Gtype
+	rtype := arg.Rtype
+	list, us, ms, err2 := data.GetRecords(userid, int(page), gtype, rtype)
 	if err2 != nil {
 		glog.Errorf("GetHuiYinRecords err %v, %s, %d", err2, userid, page)
 		return msg2

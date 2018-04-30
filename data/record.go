@@ -171,12 +171,19 @@ func (this *UserRecord) Get() {
 }
 
 //获取记录
-func GetUserRecords(userid string, page int) ([]*UserRecord, error) {
+func GetUserRecords(userid string, page int, gtype, rtype uint32) ([]*UserRecord, error) {
 	pageSize := 20 //TODO 优化数据量过大情况
 	skipNum, sortFieldR := parsePageAndSort(page, pageSize, "ctime", false)
 	var list = make([]*UserRecord, 0)
+	m := bson.M{"userid": userid}
+	if gtype > 0 {
+		m["gametype"] = gtype
+	}
+	if rtype > 0 {
+		m["roomtype"] = rtype
+	}
 	err := UserRecords.
-		Find(bson.M{"userid": userid}).
+		Find(m).
 		Sort(sortFieldR).
 		Skip(skipNum).
 		Limit(pageSize).
@@ -218,10 +225,10 @@ func GetUserInfoRecords(ms map[string]*GameRecord) ([]*UserInfoRecords, error) {
 }
 
 //获取记录
-func GetRecords(userid string, page int) ([]*UserRecord,
+func GetRecords(userid string, page int, gtype, rtype uint32) ([]*UserRecord,
 	[]*UserInfoRecords, map[string]*GameRecord, error) {
 	//玩家个人记录
-	list, err := GetUserRecords(userid, page)
+	list, err := GetUserRecords(userid, page, gtype, rtype)
 	if err != nil {
 		return nil, nil, nil, err
 	}

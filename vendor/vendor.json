@@ -40,6 +40,13 @@
 			"revision": "70ceaddfae639b5f0eca290382de18f64d5aa62d",
 			"revisionTime": "2017-10-18T12:53:05Z",
 			"tree": true
+		},
+		{
+			"checksumSHA1": "P1k/rRZQcNOL007S73GRLXUdQIU=",
+			"path": "gopkg.in/ini.v1",
+			"revision": "6529cf7c58879c08d927016dde4477f18a0634cb",
+			"revisionTime": "2018-04-20T14:56:02Z",
+			"tree": true
 		}
 	],
 	"rootPath": "goplays"
