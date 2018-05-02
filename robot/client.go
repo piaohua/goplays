@@ -99,8 +99,6 @@ func (ws *Robot) Close() {
 	default:
 		//关闭消息通道
 		ws.Sender(closeFlag(1))
-		//停止发送消息
-		close(ws.stopCh)
 		//关闭连接
 		ws.conn.Close()
 		//Logout message
@@ -122,7 +120,7 @@ func (ws *Robot) Router(id uint32, body []byte) {
 //发送消息
 func (ws *Robot) Sender(msg interface{}) {
 	if ws.msgCh == nil {
-		glog.Errorf("WSConn msg channel closed %x", msg)
+		glog.Errorf("WSConn msg channel closed %#v", msg)
 		return
 	}
 	if len(ws.msgCh) == cap(ws.msgCh) {
@@ -231,6 +229,8 @@ func (ws *Robot) writePump() {
 			}
 			err := ws.write(websocket.BinaryMessage, message)
 			if err != nil {
+				//停止发送消息
+				close(ws.stopCh)
 				return
 			}
 		}

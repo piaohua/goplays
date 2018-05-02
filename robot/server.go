@@ -31,6 +31,7 @@ type RobotServer struct {
 
 	//channel chan *pb.RobotMsg //消息通道
 	channel chan interface{} //消息通道
+	closeCh chan struct{}    // 关闭通道
 
 	Name  string //注册节点名字
 	phone string //注册登录账号
@@ -83,9 +84,9 @@ func (server *RobotServer) Start() {
 
 //关闭连接
 func (server *RobotServer) Close() {
-	close(server.stopCh)  //关闭
-	close(server.msgCh)   //关闭
-	close(server.channel) //关闭
+	//关闭消息通道
+	server.Send2rbs(closeFlag(1))
+	server.remoteSend(closeFlag(1))
 
 	server.mutexConns.Lock()
 	for conn := range server.conns {
