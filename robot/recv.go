@@ -187,6 +187,14 @@ func (r *Robot) recvPing(stoc *pb.SPing) {
 			//r.SendRoomBet()
 			r.SendRoomBet4()
 		}
+	} else if stoc.GetTime() == 200 {
+		glog.Debugf("ping %s", r.data.Userid)
+		//设置60%
+		rbet.SetPercent(60)
+		if r.bits > 0 {
+			//r.SendRoomBet()
+			r.SendRoomBet4()
+		}
 	}
 }
 
@@ -227,11 +235,11 @@ func (r *Robot) recvComein(stoc *pb.SHuiYinEnterRoom) {
 		switch roominfo.State {
 		case data.STATE_BET:
 			//r.SendRoomBet()
-			go func() {
-				//延迟下注
-				utils.Sleep(5)
-				r.SendRoomBet4()
-			}()
+			//go func() {
+			//	//延迟下注
+			//	utils.Sleep(5)
+			//	r.SendRoomBet4()
+			//}()
 		}
 	default:
 		glog.Infof("comein err -> %d", errcode)
@@ -291,7 +299,7 @@ func (r *Robot) recvBet(stoc *pb.SHuiYinRoomBet) {
 		//if r.bits > 0 && r.bitNum > 0 {
 		if r.bits > 0 {
 			//r.SendRoomBet()
-			r.SendRoomBet4()
+			//r.SendRoomBet4()
 		}
 	default:
 		r.SendStandup()
@@ -316,11 +324,11 @@ func (r *Robot) recvGamestate(stoc *pb.SHuiYinDeskState) {
 		r.bitNum = 0
 		rbet.SetState()
 		//r.SendRoomBet4() //下注
-		go func() {
-			//延迟下注
-			utils.Sleep(8)
-			r.SendRoomBet4()
-		}()
+		//go func() {
+		//	//延迟下注
+		//	utils.Sleep(8)
+		//	r.SendRoomBet4()
+		//}()
 	case data.STATE_SEAL:
 	case data.STATE_OVER:
 		rbet.Reset()  //重置

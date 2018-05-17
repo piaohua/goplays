@@ -21,6 +21,8 @@ func WxLogin(ctos *pb.WxLogin, user *data.User) (stoc *pb.WxLogined) {
 	user.Nickname = nickname
 	user.Photo = photo
 	user.Sex = sex
+	stoc.IsRegist = false
+	stoc.Userid = user.Userid
 	return
 }
 
@@ -55,6 +57,7 @@ func WxRegist(ctos *pb.WxLogin, genid *data.IDGen) (stoc *pb.WxLogined,
 //微信登录验证
 func WxLoginCheck(ctos *pb.CWxLogin) (stoc *pb.SWxLogin,
 	wxdata *data.WxLoginData) {
+	stoc = new(pb.SWxLogin)
 	var wxcode string = ctos.GetWxcode()
 	var token string = ctos.GetToken()
 	//glog.Infof("weixinLogin wxcode:%s, token:%s", wxcode, token)

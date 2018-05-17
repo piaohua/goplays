@@ -218,7 +218,7 @@ func (ws *Robot) readPump() {
 	}
 }
 
-//消息写入 TODO write Buff
+//消息写入
 func (ws *Robot) writePump() {
 	for {
 		select {

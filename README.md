@@ -18,23 +18,33 @@ cp conf.local.ini conf.ini
 ./ctrl proto
 ./ctrl protojson
 
-./ctrl build login
+./ctrl build login linux
+./ctrl build hall linux
+./ctrl build dbms linux
+./ctrl build gate2 linux
+./ctrl build web linux
+./ctrl build robot linux
+./ctrl build huiyin linux
 
-./ctrl build dbms
+cp huiyin-bin huiyin1-bin
+cp huiyin-bin huiyin2-bin
 
-./ctrl build gate
-./ctrl build gate2
+./ctrl start hall
+./ctrl start dbms
+./ctrl start login
 ./ctrl start gate2 -node=2
-
-./ctrl build hall
-./ctrl build web
-
-./ctrl build huiyin linux 1
-./ctrl build huiyin linux 2
 ./ctrl start huiyin1 -node=1
 ./ctrl start huiyin2 -node=2
+./ctrl start web
 
+./ctrl stop login
+./ctrl stop huiyin1
+./ctrl stop huiyin2
 ./ctrl stop gate2
+./ctrl stop dbms
+./ctrl stop hall
+./ctrl stop web
+
 ```
 
 ## Document
@@ -58,14 +68,11 @@ glog       日志记录
 test       测试文件
 
 gate       协议转发, 多个, 处理客户端连接, scoket packet unpack
+gate2      缓存玩家进程,优化?
 hall       大厅服务,单个,处理服务注册
 robot      机器人, 模拟客户端, 请求顺序login-gate
 login      http请求登录,返回网关信息,单个,定时向中心分发器获取可用网关
-
 web        后台 web 服务, base on beego
-
-gate2      缓存玩家进程,优化?
-
 huiyin     游戏逻辑
 
 ```
