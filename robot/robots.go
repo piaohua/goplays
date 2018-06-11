@@ -82,6 +82,7 @@ func (r *RobotServer) Send2rbs(msg interface{}) {
 		return
 	}
 	if len(r.msgCh) == cap(r.msgCh) {
+		//FIXME send msg channel full -> 100
 		glog.Errorf("send msg channel full -> %d", len(r.msgCh))
 		return
 	}
@@ -336,7 +337,7 @@ func (r *RobotServer) run() {
 					//r.offline[msg.Phone] = true
 				}
 				if v, ok := r.rooms[msg.Roomid]; ok && v > 0 {
-					r.rooms[msg.Roomid] -= 1
+					r.rooms[msg.Roomid]--
 				}
 			case *pb.RobotStop:
 				msg := m.(*pb.RobotStop)
@@ -370,7 +371,7 @@ func (r *RobotServer) run() {
 			case *pb.RobotEnterRoom:
 				msg := m.(*pb.RobotEnterRoom)
 				glog.Debugf("RobotEnterRoom -> %#v", msg)
-				r.rooms[msg.Roomid] += 1
+				r.rooms[msg.Roomid]++
 				glog.Debugf("rooms -> %#v", r.rooms)
 			case closeFlag:
 				//停止发送消息
