@@ -1,0 +1,42 @@
+syntax = "proto3";
+package pb;
+
+// 玩家的详细数据
+message UserData
+{
+    string userid   = 1;//用户账号
+    string nickname = 2;//昵称
+    string phone    = 3;//电话号码
+    uint32 sex      = 4;//用户性别,男1 女0
+    string photo    = 5;//头像
+    string agent    = 6;//绑定的代理ID
+    int64  coin     = 7;//金币
+    int64  diamond  = 8;//钻石
+    int64  card     = 9;//房卡
+    int64  chip     =10;//筹码
+    uint32 vip      =11;//vip
+}
+
+message Currency
+{
+    int64 coin     = 1;//金币
+    int64 diamond  = 2;//钻石
+    int64 card     = 3;//房卡
+    int64 chip     = 4;//筹码
+}
+
+// 房间内玩家数据
+message RoomUser
+{
+    UserData data  = 1;  //玩家数据
+    uint32 seat  = 2;  //玩家位置
+}
+
+// 玩家个人数据
+message TopInfo
+{
+    int64  topchips      = 1;//最高拥有筹码总金额
+    int64  topwinchip    = 2;//单局赢最高筹码金额
+    string registtime    = 3;//加入游戏时间
+    string logintime     = 4;//最后登录时间
+}

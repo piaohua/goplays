@@ -1,0 +1,91 @@
+syntax = "proto3";
+package pb;
+import "game_code.proto";
+
+// 登陆
+message CLogin
+{
+    uint32 code     = 1; //协议号
+    string phone    = 2; //手机
+    string password = 3; //密码 (MD5)
+}
+
+message SLogin
+{
+    uint32 code     = 1 ;//协议号
+    string userid   = 2 ;//用户id
+    ErrCode error    = 3 ;//错误码
+}
+
+// 注册
+message CRegist
+{
+    uint32 code     = 1;//协议号
+    string nickname = 2;//昵称
+    string phone    = 3;//手机号
+    string password = 4;//密码(md5)
+    string smscode  = 5;//验证码
+    string safetycode = 6;//安全码
+}
+
+message SRegist
+{
+    uint32 code   = 1 ;//协议号
+    string userid = 2 ;//用户id
+    ErrCode error  = 3 ;//错误码
+}
+
+// 微信登录登陆
+message CWxLogin
+{
+    uint32 code    = 1; //协议号
+    string wxcode  = 2; //微信code
+    string token   = 3; //token登录
+}
+
+message SWxLogin
+{
+    uint32 code    = 1 ;//协议号
+    string userid  = 2 ;// 用户id
+    string token   = 3 ;// 返回access_token
+    ErrCode error   = 5 ;// 错误码
+}
+
+// 登出
+message SLoginOut
+{
+    uint32 code  = 1 ;//协议号
+    uint32 rtype = 2 ;//1别处登录,2停服
+}
+
+// 重置密码
+message CResetPwd
+{
+    uint32 code     = 1;//协议号
+    string phone    = 2;//手机号
+    string password = 3;//密码(md5)
+    string smscode  = 4;//验证码
+}
+
+message SResetPwd
+{
+    uint32 code   = 1 ;//协议号
+    string userid = 2 ;//用户id
+    ErrCode error  = 3 ;//错误码
+}
+
+// 游客
+message CTourist
+{
+    uint32 code     = 1; //协议号
+    string account  = 2; //账号
+    string password = 3; //密码 (MD5)
+    int64 time     = 4; //时间截
+}
+
+message STourist
+{
+    uint32 code     = 1 ;//协议号
+    string userid   = 2 ;//用户id
+    ErrCode error    = 3 ;//错误码
+}

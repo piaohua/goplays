@@ -1,0 +1,110 @@
+syntax = "proto3";
+package pb;
+import "game_code.proto";
+import "pub_huiyin.proto";
+
+// 战绩
+message CHuiYinRecords
+{
+    uint32 code = 1;//协议号
+    uint32 page = 2; //页数,每页30,默认发1最近30场
+    uint32 gtype = 3;//游戏类型1 niu,2 san,3 jiu
+    uint32 rtype = 4;//房间类型0免佣,1有佣
+    string userid = 5;//
+}
+
+//TODO 战绩下注输赢明细
+message SHuiYinRecords
+{
+    uint32 code = 1 ;//协议号
+    repeated HuiYinRecords list = 2;
+    repeated HuiYinUserRecords userlist = 3;
+    ErrCode error = 4 ;//错误码
+}
+
+//获取开奖结果记录
+message CPk10Record {
+    uint32 code = 1;//协议号
+    uint32 page = 2; //页数,每页30,默认发1最近30场
+    uint32 type = 3; //类型,1 bjpk10, 2 mlaft
+}
+
+message SPk10Record {
+    uint32 code = 1;//协议号
+    repeated Pk10Record list = 2;
+    ErrCode error  = 3 ;//错误码
+}
+
+//获取房间趋势(房间内)
+message CGetTrend {
+    uint32 code = 1;//协议号
+}
+
+message SGetTrend {
+    uint32 code = 1;//协议号
+    repeated HuiYinTrend list = 2;
+    ErrCode error  = 3 ;//错误码
+}
+
+//获取房间趋势(房间内)
+message CGetOpenResult {
+    uint32 code = 1;//协议号
+}
+
+message SGetOpenResult {
+    uint32 code = 1;//协议号
+    repeated RoomOpenResult list = 2;
+    ErrCode error  = 3 ;//错误码
+}
+
+//获取上局赢家(房间内)
+message CGetLastWins {
+    uint32 code = 1;//协议号
+}
+
+message SGetLastWins {
+    uint32 code = 1;//协议号
+    repeated LastWins list = 2;
+    ErrCode error  = 3 ;//错误码
+}
+
+// 获取游戏时间列表
+message CHuiYinGames
+{
+    uint32 code = 1;//协议号
+}
+
+message SHuiYinGames
+{
+    uint32 code = 1 ;//协议号
+    repeated HuiYinGame list = 2;
+    ErrCode error  = 3 ;//错误码
+}
+
+//房间列表,按类型获取
+message CHuiYinRoomList
+{
+	uint32 code   = 1;//协议号
+    uint32 ltype  = 2;//lottery type 1 赛车, 2 飞艇
+}
+
+message SHuiYinRoomList
+{
+	uint32 code   = 1 ;//协议号
+	repeated HuiYinRoom list = 2;  //列表
+	ErrCode error  = 3 ; // 错误码
+}
+
+//盈亏统计
+message CHuiYinProfit {
+    uint32 code = 1;//协议号
+    string userid = 2;//
+}
+
+message SHuiYinProfit {
+    uint32 code = 1;//协议号
+    int64 seven  = 2 ;//7日
+    int64 thirty = 3 ;//30日
+    int64 all = 4 ;//总
+    ErrCode error  = 5 ;//错误码
+}
