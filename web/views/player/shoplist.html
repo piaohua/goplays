@@ -1,0 +1,117 @@
+<div class="row">
+	<div class="col-xs-12">
+	<a href="{{urlfor "PlayerController.ShopAdd"}}" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> 添加商品</a>
+	</div>
+</div>
+
+<div class="space-4"></div>
+								
+<div class="row">
+	<div class="col-xs-12">
+	
+	<div class="tabbable">
+		<ul class="nav nav-tabs" id="list-tab">
+			<li {{if eq .status 0}}class="active"{{end}}>
+				<a href="{{urlfor "PlayerController.ShopList" "status" 0}}">未过期</a>
+			</li>
+			<li {{if eq .status 1}}class="active"{{end}}>
+				<a href="{{urlfor "PlayerController.ShopList" "status" 1}}">已过期</a>
+			</li>
+		</ul>
+	
+		<div class="tab-content">
+		
+		<div class="row">
+			<div class="col-xs-12">
+				<form class="form-inline" method="post" action="{{urlfor "PlayerController.ShopList"}}">
+				<input type="hidden" name="status" value="{{.status}}" />
+					<div class="input-group input-group-sm">
+						<input type="text" id="start_date" name="start_date" value="{{.startDate}}" class="form-control" />
+						<span class="input-group-addon">
+							<i class="ace-icon fa fa-calendar"></i>
+						</span>
+					</div>
+					<div class="input-group input-group-sm">
+						<input type="text" id="end_date" name="end_date" value="{{.endDate}}" class="form-control" />
+					<span class="input-group-addon">
+						<i class="ace-icon fa fa-calendar"></i>
+					</span>
+					</div>
+					<div class="input-group input-group-sm">
+						<button type="submit" class="btn">查询</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="space-4"></div>
+
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+			<tr>
+				<th>商品ID</th>
+				<th>商品名字</th>
+				<th>创建时间</th>
+				<th>过期时间</th>
+				<th>分包类型</th>
+				<th>物品状态</th>
+				<th>购买物品</th>
+				<th>支付方式</th>
+				<th>购买数量</th>
+				<th>购买价格</th>
+				<th>商品描述</th>
+				<th>操作</th>
+			</tr>
+			</thead>
+			<tbody>
+			{{range $k, $v := .list}}
+				<tr>
+					<td>{{$v.Id}}</td>
+					<td>{{$v.Name}}</td>
+					<td>{{date $v.Ctime "Y-m-d H:i:s"}}</td>
+					<td>{{date $v.Etime "Y-m-d H:i:s"}}</td>
+          <td>{{$v.Atype}}</td>
+					<td>{{if eq $v.Status 1}}
+          <span class="text-success bigger-110 yellow">热卖</span>
+          {{else}}
+          <span class="text-warning bigger-110 grey">普通</span>
+          {{end}}</td>
+					<td>{{if eq $v.Propid 1}}
+          <span class="text-success bigger-110 green">钻石</span>
+          {{else if eq $v.Propid 2}}
+          <span class="text-success bigger-110 green">金币</span>
+          {{else}}
+          <span class="text-warning bigger-110 red">其它</span>
+          {{end}}</td>
+					<td>{{if eq $v.Payway 1}}
+          <span class="text-success bigger-110 green">RMB</span>
+          {{else if eq $v.Payway 2}}
+          <span class="text-success bigger-110 green">钻石</span>
+          {{else}}
+          <span class="text-warning bigger-110 green">其它</span>
+          {{end}}</td>
+					<td>{{$v.Number}}</td>
+					<td>{{$v.Price}}</td>
+					<td>{{$v.Info}}</td>
+					<td>
+					<a href="{{urlfor "PlayerController.Shop" "id" $v.Id}}">发布</a> |
+					<a href="{{urlfor "PlayerController.ShopDel" "id" $v.Id}}">移除</a> |
+          </td>
+				</tr>
+			{{end}}
+			
+			{{if eq .count 0}}
+				<tr>
+					<td colspan="20">暂无记录...</td>
+				</tr>
+			{{end}}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="10">{{str2html .pageBar}}</td>
+				</tr>
+			</tfoot>
+		</table>
+		</div>
+	</div>
+	</div>
+</div>

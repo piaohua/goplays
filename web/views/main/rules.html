@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+    <title>乐享牛牛</title>
+
+		<!-- basic styles -->
+
+		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+
+		<!--[if IE 7]>
+		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+		<![endif]-->
+
+		<!-- page specific plugin styles -->
+
+		<link rel="stylesheet" href="assets/css/prettify.css" />
+
+		<!-- fonts -->
+
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+
+		<!-- ace styles -->
+
+		<link rel="stylesheet" href="assets/css/ace.min.css" />
+		<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+		<link rel="stylesheet" href="assets/css/ace-skins.min.css" />
+
+		<!--[if lte IE 8]>
+		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+		<![endif]-->
+
+		<!-- inline styles related to this page -->
+
+		<!-- ace settings handler -->
+
+		<script src="assets/js/ace-extra.min.js"></script>
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+		<!--[if lt IE 9]>
+		<script src="assets/js/html5shiv.js"></script>
+		<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+<body>
+<div class="col-sm-8">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="widget-box">
+
+        <div class="widget-body">
+          <div class="widget-main">
+            <dl id="dt-list-1">
+              <dt class="center " >看牌抢庄</dt>
+              <dt>一、基本规则</dt>
+              <dd>(一)游戏人数可为2-5人，使用一副扑克牌，总共52张牌（无大小王）。 </dd>
+              <dd>(二)游戏开始后，系统会给每位玩家发4张牌，以正面展示，玩家可自行选择是否抢庄，如果无人抢庄，则由系统从所有玩家中随机选庄。 </dd>
+              <dd>(三)下注时，只允许闲家下注，庄家无法下注。</dd>
+              <dd>(四)下注结束后，分发第5张牌。</dd>
+              <dd>(五)玩家从手牌中任意选择3张进行组合（确定有牛），组合后，点击摊牌按钮，即打开手牌。</dd>
+              <dd>(六)当所有玩家摊开手牌后，则与庄家比拼大小。</dd>
+              <hr />
+              <dt>二、大小比较</dt>
+              <dd>(一)牌型：五小>炸弹>五花>牛牛>有牛>无牛。 </dd>
+              <dd>(二)花色：黑桃>红桃>草花>方块。 </dd>
+              <dd>(三)单张：K>Q>J>10>9>8>7>6>5>4>3>2>A。 </dd>
+              <dd>(四)无牛：比单张大小。 </dd>
+              <dd>(五)有牛：比牌型大小，牛九>牛八>牛七>牛六>牛五>牛四>牛三>牛二>牛一。 </dd>
+              <dd>(六)牛牛：比单张+花色的大小。 </dd>
+              <dd>(七)五花：比单张+花色的大小。 </dd>
+              <dd>(八)五小：比点数+单张+花色的大小。 </dd>
+              <dd>(九)炸弹：大牌吃小牌，K最大，A最小。 </dd>
+              <hr />
+              <dt>三、倍数</dt>
+              <dd>(一)无牛、牛一~牛六 ：1倍。 </dd>
+              <dd>(二)牛七、牛八、牛九 ：2倍。 </dd>
+              <dd>(三)牛牛：3倍。 </dd>
+              <dd>(四)五花：4倍。 </dd>
+              <dd>(五)炸弹：5倍。 </dd>
+              <dd>(六)五小：6倍。 </dd>
+              <dd>(七)玩家胜负积分=倍数*抢庄下注额度。 </dd>
+              <hr />
+              <dt class="center" >百人游戏</dt>
+              <dt>一、基本规则</dt>
+              <dd>(一)顾名思义可以多人同时对战，玩家可以选择上庄或当闲。 </dd>
+              <dd>(二)牌局开始后，玩家可以在天地玄黄4个区域投注。 </dd>
+              <dd>(三)每位玩家最多可以投注携带金币数的1/4，且所有玩家下注额达到庄家金币1/4时，则不可再进行下注。 </dd>
+              <dd>(四)投注结束后，分别给庄天地玄黄区域发牌。 </dd>
+              <dd>(五)系统自动根据玩家所下区域的牌型和庄家牌型比较大小。 </dd>
+              <hr />
+              <dt>二、结算计算</dt>
+              <dd>(一)最大投注额必须支持4倍赔付，如：玩家身上有6000金币，则玩家最多可下注1500金币，同理，如果庄家有60000金币，所有闲家下注总额最多为15000金币。 </dd>
+              <dd>(二)赢家需抽取盈利部分10%的服务费，其中的5%会汇入奖池。 </dd>
+              <hr />
+              <dt>三、奖池分配</dt>
+              <dd>当玩家所下区域为如下牌型时，即可获得相应的奖金（与其他下注此区域的玩家平分）。 </dd>
+              <dd>如：奖池中有4000000金币，40人下注“天”区域，且“天”区域为炸弹牌型，则4000000*35%/40=35000，即，每人获得35000金币。 </dd>
+              <dd>五小牛：35%。 </dd>
+              <dd>炸弹：35%。 </dd>
+              <dd>五花牛：15%。 </dd>
+              <dd>牛牛：5%。 </dd>
+              <hr />
+              <dt class="center" >其他帮助</dt>
+              <dt>如需其他帮助，请及时联系我们的客服人员（联系方式）移动电话: 15007173834, QQ: 1069255855, 微信:  </dt>
+            </dl>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

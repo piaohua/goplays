@@ -1,0 +1,93 @@
+<div class="row">
+	<div class="col-xs-12">
+	</div>
+</div>
+		
+<div class="space-4"></div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-inline" method="post" action="{{urlfor "AgencyController.AgencyList"}}">
+			<input type="hidden" name="status" value="{{.status}}" />
+			<div class="input-group input-group-sm">
+				<input type="text" id="start_date" name="start_date" value="{{.startDate}}" class="form-control" />
+				<span class="input-group-addon">
+					<i class="ace-icon fa fa-calendar"></i>
+				</span>
+			</div>
+			<div class="input-group input-group-sm">
+				<input type="text" id="end_date" name="end_date" value="{{.endDate}}" class="form-control" />
+				<span class="input-group-addon">
+					<i class="ace-icon fa fa-calendar"></i>
+				</span>
+			</div>
+			<div class="input-group input-group-sm">
+				<button type="submit" class="btn">查询</button>
+			</div>
+		</div>
+	</div>
+		</form>
+		<div class="space-4"></div>
+
+
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+			<tr>
+				<th>账号</th>
+				<th>邀请码</th>
+				<th>上级邀请码</th>
+        <!--<th>电话</th>-->
+				<th>反佣</th>
+				<th>系统抽成</th>
+        <!--<th>微信号</th>-->
+				<th>剩余收益</th>
+				<th>历史收益</th>
+				<th>已提收益</th>
+				<th>绑定数量</th>
+        <!--<th>可提取</th>-->
+        <!--<th>已提取</th>-->
+				<!--<th>余额</th>-->
+				<!--<th>筹码余额</th>-->
+        <!--<th>最后提取时间</th>-->
+				<th>创建时间</th>
+				<th>操作</th>
+			</tr>
+			</thead>
+      <tbody>
+			{{range $k, $v := .list}}
+				<tr>
+					<td>{{$v.UserName}}</td>
+					<td class="center">{{$v.Agent}}</td>
+					<td class="center">{{$v.ParentAgent}}</td>
+          <!--<td>{{$v.Phone}}</td>-->
+					<td>{{$v.Rate}}%</td>
+					<td>{{$v.SysRate}}%</td>
+					<!--<td>{{$v.Weixin}}</td>-->
+					<td>{{$v.FeeAllf}}</td>
+					<td>{{$v.FeeTopf}}</td>
+					<td>{{$v.FeeExtractf}}</td>
+					<td>{{$v.Builds}}</td>
+					<!--<td>{{$v.Cash}}元</td>-->
+					<!--<td>{{$v.Extract}}元</td>-->
+          <!--<td>{{$v.Number}}</td>-->
+          <!--<td>{{$v.Chip}}</td>-->
+          <!--<td>{{date $v.CashTime "Y-m-d H:i:s"}}</td>-->
+					<td>{{date $v.CreateTime "Y-m-d H:i:s"}}</td>
+					</td>
+					<td>
+            <!--<a href="{{urlfor "AgencyController.AgencyGive" "id" $v.Id}}">赠送</a> |-->
+					<!--<a href="{{urlfor "AgencyController.Give2Agency" "id" $v.Id}}">发放</a> |-->
+					<a href="{{urlfor "AgencyController.AgencyEdit" "id" $v.Id}}">编辑</a> |
+					<a href="{{urlfor "AgencyController.DirectlyAgency" "id" $v.Agent}}">下属代理</a> |
+					</td>
+				</tr>
+			{{end}}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="10">{{str2html .pageBar}}</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>

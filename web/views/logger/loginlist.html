@@ -1,0 +1,76 @@
+<div class="row">
+	<div class="col-xs-12">
+	</div>
+</div>
+		
+<div class="space-4"></div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-inline" method="post" action="{{urlfor "LoggerController.LoginList"}}">
+			<input type="hidden" name="status" value="{{.status}}" />
+			<div class="input-group input-group-sm">
+				<input type="text" id="start_date" name="start_date" value="{{.startDate}}" class="form-control" />
+				<span class="input-group-addon">
+					<i class="ace-icon fa fa-calendar"></i>
+				</span>
+			</div>
+			<div class="input-group input-group-sm">
+				<input type="text" id="end_date" name="end_date" value="{{.endDate}}" class="form-control" />
+				<span class="input-group-addon">
+					<i class="ace-icon fa fa-calendar"></i>
+				</span>
+			</div>
+			<div class="input-group input-group-sm">
+				<input type="text" id="userid" name="userid" value="{{.userid}}" class="form-control" placeholder="玩家ID" />
+        <span class="input-group-addon">
+          <i class="ace-icon fa fa-users"></i>
+        </span>
+			</div>
+			<div class="input-group input-group-sm">
+				<button type="submit" class="btn">查询</button>
+			</div>
+		</div>
+	</div>
+		</form>
+		<div class="space-4"></div>
+
+
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+			<tr>
+				<th>玩家ID</th>
+				<th>登录状态</th>
+				<th>登录IP</th>
+				<th>登录时间</th>
+				<th>登出时间</th>
+			</tr>
+			</thead>
+      <tbody>
+			{{range $k, $v := .list}}
+				<tr>
+					<td>{{$v.Userid}}</td>
+					<td>{{if eq $v.Event 0}}
+          <span class="text-success bigger-110 green">登录</span>
+          {{else if eq $v.Event 1}}
+          <span class="text-warning bigger-110 green">退出</span>
+          {{else if eq $v.Event 2}}
+          <span class="text-warning bigger-110 orange">停服退出</span>
+          {{else}}
+          <span class="text-warning bigger-110 orange">{{$v.Event}}</span>
+          {{end}}</td>
+					<td>{{$v.Ip}}</td>
+					<td>{{date $v.LoginTime "Y-m-d H:i:s"}}</td>
+					<td>{{date $v.LogoutTime "Y-m-d H:i:s"}}</td>
+					</td>
+				</tr>
+			{{end}}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="10">{{str2html .pageBar}}</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>

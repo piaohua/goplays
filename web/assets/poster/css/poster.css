@@ -1,0 +1,87 @@
+*{ margin: 0; padding: 0; text-decoration: none; list-style-type: none;}
+body{background: #1c094a;
+    font-family: 'Microsoft YaHei',Verdana,Arial,Helvetica,sans-serif;}
+
+
+.center{width: 100%; margin: auto; background: #1c094a; overflow: hidden; display: block;}
+.conlogo{ background: #004f8f; height: 2.4rem;position: absolute; width: 100%}
+.logo{ position: absolute;top:0.2rem; left: 0.5rem; }
+.logo img{ width: 2.1rem; height: 2.1rem}
+.conlga{ float: left;width: 6.7rem;color: #fdf0bd; margin-left: 4.8rem;
+    margin-top: 0.2rem;}
+.conlgk{ font-size: .9rem;display: block; overflow: hidden;}
+.conlgl{ font-size: .6rem;display: block; overflow: hidden;}
+.conlgb{ float: left;
+           border-radius: 0.31rem;
+           background-color: #1c094a;
+           width: 3.6rem;
+           height: 1.3rem;
+           z-index: 84;
+          font-size: 0.4rem;
+          text-align: center;
+           line-height: 1.3rem;
+           margin-top: .5rem;
+                     }
+.conlgb a{ color: #FFF; display: inline-block; width: 3.6rem;
+    height: 1.3rem; font-size: 0.6rem;}
+
+.cenad{ background: url("../images/cenad.jpg"); width:100%; height: 16.1rem; background-size: 100% 100%}
+
+.cenaz{ text-align: left; background: #004f8f; width: 13.5rem; margin: auto; display: block; overflow: hidden; padding: 0.8rem;}
+.conh1{ background: url("../images/logo2.png"); width: 4.08rem;height:  4.08rem; float: left; background-size: 4.08rem; margin-top:0rem; margin-left: 0.9rem;}
+.conh2{  color: #FFCC00; float: left; font-size: 0.5rem; margin-top: 0.5rem; margin-left: 1rem}
+.conh2 a{color: #FF0000;}
+
+.condw{display: block; overflow: hidden; margin-top: 1.6rem; margin-bottom: 1.8rem;}
+.condw li{float: left; margin: 0 0.6rem;}
+.condw li a{ display: inline-block;width: 6.7rem; height: 1.9rem;}
+.condwan{ background: url("../images/dowsan.png");width: 6.7rem; height: 1.5rem; background-size: 100% 100%}
+.condwip{ background: url("../images/dowsip.png");width: 6.7rem; height: 1.5rem; background-size: 100% 100%}
+
+.conds{display: block; overflow: hidden; margin-top: 3.5rem;}
+
+.connvr{width: 100%; height: 1.5rem; margin-top:1.21rem; line-height:1.5rem;background-size: 100% 100%;    margin-bottom: 0.6rem;}
+.connvrbt{color: #FFF;  font-size: 1rem; margin-left: 0.88rem; float: left;}
+.confh{float: right; margin-right: .45rem; color: #c49d4d; font-size: 0.56rem; text-align: center;line-height: 1.3rem}
+.confh a{color: #FFF; background: #eabd02; width: 3rem; height: 1.3rem; border-radius: .41rem; display: inline-block;}
+.comyin{ display: table; overflow: hidden; margin: auto; width: 100%;}
+.comyin li{ background: url("../images/yinyong.png");width: 7.2rem; height: 7.6rem; text-align: center; float: left;margin: 0.45rem 0.33rem;background-size: 100% 100%}
+.comyin li a{color: #181314;}
+.conyia{ font-size:0.67rem; line-height: 1.01rem; color: #ddccb7;}
+.conyib{ margin-top: 0.45rem; margin-bottom: 0.58rem;}
+.conyib img{ width: 6.83rem; height: 4.13rem}
+.conyic{
+            border-radius: 0.33rem;
+            background-color: rgb(246, 235, 135);
+            width: 4.08rem;
+            height: 0.94rem;
+            z-index: 52;
+           margin: auto; text-align: center; line-height:0.94rem;
+    font-size: 0.4rem;
+        }
+
+.foort{text-align: center; color: #FFF; margin-top: 0.45rem ; margin-bottom: 0.67rem;}
+.foolin{ display: block; overflow: hidden; margin-bottom: 0.22rem;  font-size: 0.67rem; background: #004f8f; height: 1.5rem; line-height: 1.5rem; color: #FFF;}
+.foolin a{display: inline-block; overflow: hidden;color: #FFF;}
+.foolin p{ font-size: .36rem;}
+
+.contxt{ background: #004F8F; color: #FFF; width: 14.78rem; margin: .22rem auto; padding: .21rem; min-height: 15.8rem; font-size: 0.49rem;}
+
+.foort p{ line-height: 0.79rem; font-size:.5rem; }
+
+
+
+#weixin-tip{ display:none; position: fixed; left:0; top:0; background: rgba(0,0,0,0.8); filter:alpha(opacity=80); width: 100%; height:100%; z-index: 100;} 
+#weixin-tip p{text-align: center; margin-top: 10%; padding:0 5%; position: relative;}
+#weixin-tip img{ width:100%;} 
+#weixin-tip .close{
+	color: #fff;
+	padding: 5px;
+	font: bold 20px/20px simsun;
+	text-shadow: 0 1px 0 #ddd;
+	position: absolute;
+	top: 0; left: 5%;
+}
+.weixin-tip{ display:none; position: fixed; left:0; top:0; background: rgba(0,0,0,0.8); filter:alpha(opacity=80); width: 100%; height:100%; z-index: 100;} 
+.weixin-tip p{text-align: center; margin-top: 10%; padding:0 5%; position: relative;}
+.weixin-tip img{ width:100%;}

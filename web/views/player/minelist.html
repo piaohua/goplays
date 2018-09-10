@@ -1,0 +1,115 @@
+<div class="row">
+	<div class="col-xs-12">
+	</div>
+</div>
+		
+<div class="space-4"></div>
+
+<div class="row">
+	<div class="col-xs-12">
+
+{{if .flash.error}}
+<div class="alert alert-danger alert-dismissible fade in" role="alert">
+	{{.flash.error}}
+</div>
+{{end}}
+{{if .flash.success}}
+<div class="alert alert-warning alert-dismissible fade in" role="alert">
+	{{.flash.success}}
+</div>
+<script>$(".alert").fadeOut(2000);</script>
+{{end}}
+
+		<form class="form-inline" method="post" action="{{urlfor "PlayerController.MineList"}}">
+			<input type="hidden" name="status" value="{{.status}}" />
+			<div class="input-group input-group-sm">
+				<input type="text" id="start_date" name="start_date" value="{{.startDate}}" class="form-control" />
+				<span class="input-group-addon">
+					<i class="ace-icon fa fa-calendar"></i>
+				</span>
+			</div>
+			<div class="input-group input-group-sm">
+				<input type="text" id="end_date" name="end_date" value="{{.endDate}}" class="form-control" />
+				<span class="input-group-addon">
+					<i class="ace-icon fa fa-calendar"></i>
+				</span>
+			</div>
+			<div class="input-group input-group-sm">
+				<input type="text" id="userid" name="userid" value="{{.userid}}" class="form-control" placeholder="玩家ID" />
+        <span class="input-group-addon">
+          <i class="ace-icon fa fa-users"></i>
+        </span>
+			</div>
+			<div class="input-group input-group-sm">
+				<select name="type_id">
+          <!--<option value="">全部玩家</option>-->
+					{{range $k,$v := .typeList}}
+					<option value="{{$k}}" {{if eq $.typeId $k}}selected{{end}}>{{$v}}</option>
+					{{end}}
+				</select>
+			</div>
+			<div class="input-group input-group-sm">
+				<button type="submit" class="btn">查询</button>
+			</div>
+		</div>
+	</div>
+		</form>
+		<div class="space-4"></div>
+
+
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+			<tr>
+				<th>ID</th>
+				<th>昵称</th>
+				<th>状态</th>
+				<th>筹码</th>
+        <!--<th>金币</th>-->
+				<th>赢</th>
+				<th>输</th>
+				<th>平</th>
+				<th>代理</th>
+        <!--<th>绑定时间</th>-->
+				<th>创建时间</th>
+				<th>操作</th>
+			</tr>
+			</thead>
+      <tbody>
+			{{range $k, $v := .list}}
+				<tr>
+					<td class="center">{{$v.Userid}}</td>
+					<td>{{$v.Nickname}}</td>
+					<td>{{if eq $v.State 1}}
+          <span class="text-success bigger-110 green">在线</span>
+          {{else}}
+          <span class="text-warning bigger-110 orange">离线</span>
+          {{end}}</td>
+          <td>{{$v.Chipf}}</td>
+          <!--<td>{{$v.Coin}}</td>-->
+					<td>{{$v.Win}}</td>
+					<td>{{$v.Lost}}</td>
+					<td>{{$v.Ping}}</td>
+					<td>{{$v.Agent}}</td>
+          <!--<td>{{date $v.Atime "Y-m-d H:i:s"}}</td>-->
+					<td>{{date $v.Ctime "Y-m-d H:i:s"}}</td>
+					</td>
+					<td>
+					<a href="{{urlfor "PlayerController.MineEdit" "userid" $v.Userid}}">编辑</a> |
+          <!--
+					<a href="{{urlfor "PlayerController.Build" "userid" $v.Userid}}">绑定</a> |
+					<a href="{{urlfor "PlayerController.Desk" "userid" $v.Userid "rtype" 0}}">房间</a> |
+					<a href="{{urlfor "PlayerController.Desk" "userid" $v.Userid "rtype" 1}}">离开</a> |
+					<a href="{{urlfor "PlayerController.Desk" "userid" $v.Userid "rtype" 2}}">解散</a> |
+          -->
+					</td>
+				</tr>
+			{{end}}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="10">{{str2html .pageBar}}</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>

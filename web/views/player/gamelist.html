@@ -1,0 +1,142 @@
+<div class="row">
+	<div class="col-xs-12">
+	<a href="{{urlfor "PlayerController.GameAdd"}}" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> 添加游戏房间</a>
+	</div>
+</div>
+
+<div class="space-4"></div>
+								
+<div class="row">
+	<div class="col-xs-12">
+	
+	<div class="tabbable">
+		<ul class="nav nav-tabs" id="list-tab">
+			<li {{if eq .status 0}}class="active"{{end}}>
+				<a href="{{urlfor "PlayerController.GameList" "status" 0}}">使用中</a>
+			</li>
+			<li {{if eq .status 1}}class="active"{{end}}>
+				<a href="{{urlfor "PlayerController.GameList" "status" 1}}">已移除</a>
+			</li>
+		</ul>
+	
+		<div class="tab-content">
+		
+		<div class="row">
+			<div class="col-xs-12">
+				<form class="form-inline" method="post" action="{{urlfor "PlayerController.GameList"}}">
+				<input type="hidden" name="status" value="{{.status}}" />
+					<div class="input-group input-group-sm">
+						<input type="text" id="start_date" name="start_date" value="{{.startDate}}" class="form-control" />
+						<span class="input-group-addon">
+							<i class="ace-icon fa fa-calendar"></i>
+						</span>
+					</div>
+					<div class="input-group input-group-sm">
+						<input type="text" id="end_date" name="end_date" value="{{.endDate}}" class="form-control" />
+					<span class="input-group-addon">
+						<i class="ace-icon fa fa-calendar"></i>
+					</span>
+					</div>
+					<div class="input-group input-group-sm">
+						<button type="submit" class="btn">查询</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="space-4"></div>
+
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+			<tr>
+        <!--<th>ID</th>-->
+				<th>名字</th>
+				<th>创建时间</th>
+				<th>节点</th>
+				<th>彩种类型</th>
+				<th>游戏类型</th>
+				<th>房间类型</th>
+				<th>房间状态</th>
+				<th>限制人数</th>
+				<th>抽佣百分比</th>
+				<th>vip限制</th>
+				<th>进入筹码限制</th>
+				<th>上庄</th>
+				<th>上庄最小</th>
+				<th>下庄最小</th>
+				<th>下庄最大</th>
+				<th>坐下限制</th>
+				<th>操作</th>
+			</tr>
+			</thead>
+			<tbody>
+			{{range $k, $v := .list}}
+				<tr>
+          <!--<td>{{$v.Id}}</td>-->
+					<td>{{$v.Name}}</td>
+					<td>{{date $v.Ctime "Y-m-d H:i:s"}}</td>
+					<td>{{$v.Node}}</td>
+					<td>{{if eq $v.Ltype 1}}
+          <span class="text-success bigger-110 yellow">赛车彩种</span>
+          {{else if eq $v.Ltype 2}}
+          <span class="text-warning bigger-110 grey">飞艇彩种</span>
+          {{else}}
+          <span class="text-warning bigger-110 red">其它</span>
+          {{end}}</td>
+					<td>{{if eq $v.Gtype 1}}
+          <span class="text-success bigger-110 green">牛牛</span>
+          {{else if eq $v.Gtype 2}}
+          <span class="text-success bigger-110 green">三公</span>
+          {{else if eq $v.Gtype 3}}
+          <span class="text-success bigger-110 green">牌九</span>
+          {{else}}
+          <span class="text-warning bigger-110 red">其它</span>
+          {{end}}</td>
+					<td>{{if eq $v.Rtype 0}}
+          <span class="text-success bigger-110 green">免佣</span>
+          {{else if eq $v.Rtype 1}}
+          <span class="text-success bigger-110 green">抽佣</span>
+          {{else}}
+          <span class="text-warning bigger-110 red">其它</span>
+          {{end}}</td>
+					<td>{{if eq $v.Status 1}}
+          <span class="text-success bigger-110 green">打开</span>
+          {{else if eq $v.Status 2}}
+          <span class="text-success bigger-110 green">关闭</span>
+          {{else if eq $v.Status 3}}
+          <span class="text-success bigger-110 green">隐藏</span>
+          {{else}}
+          <span class="text-warning bigger-110 red">其它</span>
+          {{end}}</td>
+					<td>{{$v.Count}}</td>
+					<td>{{$v.Cost}}%</td>
+					<td>{{$v.Vip}}</td>
+					<td>{{$v.Chip}}</td>
+					<td>{{$v.Deal}}</td>
+					<td>{{$v.Carry}}</td>
+					<td>{{$v.Down}}</td>
+					<td>{{$v.Top}}</td>
+					<td>{{$v.Sit}}</td>
+					<td>
+					<a href="{{urlfor "PlayerController.Game" "id" $v.Id}}">发布</a> |
+					<a href="{{urlfor "PlayerController.GameDel" "id" $v.Id}}">移除</a> |
+					<a href="{{urlfor "PlayerController.GameEdit" "id" $v.Id}}">编辑</a> |
+          </td>
+				</tr>
+			{{end}}
+			
+			{{if eq .count 0}}
+				<tr>
+					<td colspan="20">暂无记录...</td>
+				</tr>
+			{{end}}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="10">{{str2html .pageBar}}</td>
+				</tr>
+			</tfoot>
+		</table>
+		</div>
+	</div>
+	</div>
+</div>

@@ -1,0 +1,30 @@
+
+<div class="alert alert-warning alert-dismissible hide" role="alert"></div>
+
+<form class="form-horizontal ajax-form" method="post" action="{{urlfor "PlayerController.EnvAdd"}}">
+
+  <div class="form-group">
+    <label for="key" class="col-sm-2 control-label">变量名字</label>
+    <div class="col-sm-3">
+      <select name="key">
+        {{range $k,$v := .types1}}
+        <option value="{{$k}}" {{if eq $k 1}}selected{{end}}>{{$v}}</option>
+        {{end}}
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="value" class="col-sm-2 control-label">变量值</label>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" id="value" name="value">
+    </div>
+  </div>
+
+  <div class="clearfix form-actions">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-info"><i class="ace-icon fa fa-check bigger-110"></i>提交</button>
+      <a href="{{urlfor "PlayerController.EnvList"}}" class="btn btn-default"><i class="ace-icon fa fa-reply bigger-110"></i>返回</a>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,98 @@
+<div class="row">
+  <div class="col-xs-12">
+  </div>
+</div>
+
+<div class="space-4"></div>
+
+<div class="row">
+  <div class="col-xs-12 center">
+
+    <!-- A simple implementation of Area 2D chart showing daily trend of liquor sales for the last week -->
+    <div id="chart-container">FusionCharts will render here</div>
+    <input type="hidden" id="data1" name="data1" value="{{.data1}}" />
+    <input type="hidden" id="data2" name="data2" value="{{.data2}}" />
+    <input type="hidden" id="data3" name="data3" value="{{.data3}}" />
+    <input type="hidden" id="data4" name="data4" value="{{.data4}}" />
+
+    <script src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+    <script>
+      var str1 = document.getElementById('data1').value;
+      var data1 = JSON.parse(str1);
+      var str2 = document.getElementById('data2').value;
+      var data2 = JSON.parse(str2);
+      var str3 = document.getElementById('data3').value;
+      var data3 = JSON.parse(str3);
+      var str4 = document.getElementById('data4').value;
+      var data4 = JSON.parse(str4);
+    </script>
+    <script>
+      FusionCharts.ready(function () {
+        var salesAnlysisChart = new FusionCharts({
+          type: 'mscombi2d',
+          renderAt: 'chart-container',
+          width: '600',
+          height: '300',
+          dataFormat: 'json',
+          dataSource: {
+            "chart": {
+              "caption": "充值统计",
+              "subCaption": "当天的充值统计",
+              "xAxisname": "天",
+              "yAxisName": "充值金额 (In RMB)",
+              "numberPrefix": "$",
+              "showBorder": "0",
+              "showValues": "0",
+              "paletteColors": "#0075c2,#1aaf5d,#f2c500",
+              "bgColor": "#ffffff",
+              "showCanvasBorder": "0",
+              "canvasBgColor": "#ffffff",
+              "captionFontSize": "14",
+              "subcaptionFontSize": "14",
+              "subcaptionFontBold": "0",
+              "divlineColor": "#999999",
+              "divLineIsDashed": "1",
+              "divLineDashLen": "1",
+              "divLineGapLen": "1",
+              "showAlternateHGridColor": "0",
+              "usePlotGradientColor": "0",
+              "toolTipColor": "#ffffff",
+              "toolTipBorderThickness": "0",
+              "toolTipBgColor": "#000000",
+              "toolTipBgAlpha": "80",
+              "toolTipBorderRadius": "2",
+              "toolTipPadding": "5",
+              "legendBgColor": "#ffffff",
+              "legendBorderAlpha": '0',
+              "legendShadow": '0',
+              "legendItemFontSize": '10',
+              "legendItemFontColor": '#666666'
+            },
+            "categories": [
+              {
+                "category": data1
+              }
+            ],
+            "dataset": [
+              {
+                "seriesName": "充值金额",
+                "showValues": "1",
+                "data": data3
+              },
+              {
+                "seriesName": "充值人数",
+                "renderAs": "line",
+                "data": data2
+              },
+              {
+                "seriesName": "钻石数量",
+                "renderAs": "area",
+                "data": data4
+              }
+            ]
+          }
+        }).render();
+      });
+    </script>
+  </div>
+</div>

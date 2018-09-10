@@ -1,0 +1,35 @@
+
+<div class="alert alert-warning alert-dismissible hide" role="alert"></div>
+
+<form class="form-horizontal ajax-form" method="post" action="{{urlfor "AgencyController.Give2Agency"}}">
+	<input type="hidden" name="id" value="{{.user.Id}}" />
+	<div class="form-group">
+		<label for="id" class="col-sm-2 control-label">代理ID</label>
+		<div class="col-sm-3">
+			<label class="control-label">{{.user.Id}}</label>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="username" class="col-sm-2 control-label">代理账号</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="username" name="username" value="{{.user.UserName}}" disabled>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="diamond" class="col-sm-2 control-label">筹码</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="diamond" name="diamond">
+		</div>
+		<div class="help-block col-xs-12 col-sm-reset inline">
+			发放到后台账号中
+		</div>
+	</div>
+	
+	<div class="clearfix form-actions">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-info"><i class="ace-icon fa fa-check bigger-110"></i>提交</button>
+			<a href="{{urlfor "AgencyController.AgencyList"}}" class="btn btn-default"><i class="ace-icon fa fa-reply bigger-110"></i>返回</a>
+		</div>
+	</div>
+</form>

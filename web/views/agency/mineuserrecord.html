@@ -1,0 +1,133 @@
+<div class="row">
+	<div class="col-xs-12">
+	</div>
+</div>
+		
+<div class="space-4"></div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-inline" method="post" action="{{urlfor "AgencyController.MineUserRecord"}}">
+			<input type="hidden" name="status" value="{{.status}}" />
+			<div class="input-group input-group-sm">
+				<input type="text" id="start_date" name="start_date" value="{{.startDate}}" class="form-control" />
+				<span class="input-group-addon">
+					<i class="ace-icon fa fa-calendar"></i>
+				</span>
+			</div>
+			<div class="input-group input-group-sm">
+				<input type="text" id="end_date" name="end_date" value="{{.endDate}}" class="form-control" />
+				<span class="input-group-addon">
+					<i class="ace-icon fa fa-calendar"></i>
+				</span>
+			</div>
+			<div class="input-group input-group-sm">
+				<input type="text" id="userid" name="userid" value="{{.userid}}" class="form-control" placeholder="玩家ID" />
+        <span class="input-group-addon">
+          <i class="ace-icon fa fa-users"></i>
+        </span>
+			</div>
+			<div class="input-group input-group-sm">
+				<input type="text" id="expect" name="expect" value="{{.expect}}" class="form-control" placeholder="期号" />
+        <span class="input-group-addon">
+          <i class="ace-icon fa fa-users"></i>
+        </span>
+			</div>
+			<div class="input-group input-group-sm">
+				<select name="gtype">
+					{{range $k,$v := .gtypes}}
+					<option value="{{$k}}" {{if eq $.gtype $k}}selected{{end}}>{{$v}}</option>
+					{{end}}
+				</select>
+			</div>
+			<div class="input-group input-group-sm">
+				<select name="rtype">
+					{{range $k,$v := .rtypes}}
+					<option value="{{$k}}" {{if eq $.rtype $k}}selected{{end}}>{{$v}}</option>
+					{{end}}
+				</select>
+			</div>
+			<div class="input-group input-group-sm">
+				<select name="ltype">
+					{{range $k,$v := .ltypes}}
+					<option value="{{$k}}" {{if eq $.ltype $k}}selected{{end}}>{{$v}}</option>
+					{{end}}
+				</select>
+			</div>
+			<div class="input-group input-group-sm">
+				<button type="submit" class="btn">查询</button>
+			</div>
+		</div>
+	</div>
+		</form>
+		<div class="space-4"></div>
+
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+			<tr>
+				<th>彩种类型</th>
+				<th>游戏类型</th>
+				<th>房间类型</th>
+				<th>玩家ID</th>
+				<th>期号</th>
+				<th>机器人</th>
+				<th>输赢</th>
+				<th>下注额</th>
+				<th>剩余额</th>
+				<th>时间</th>
+				<th>操作</th>
+			</tr>
+			</thead>
+      <tbody>
+			{{range $k, $v := .list}}
+
+				<tr>
+					<td>{{if eq $v.Lotterytype 1}}
+          <span class="text-success bigger-110 yellow">赛车彩种</span>
+          {{else if eq $v.Lotterytype 2}}
+          <span class="text-warning bigger-110 grey">飞艇彩种</span>
+          {{else}}
+          <span class="text-warning bigger-110 red">其它</span>
+          {{end}}</td>
+					<td>{{if eq $v.Gametype 1}}
+          <span class="text-success bigger-110 green">牛牛</span>
+          {{else if eq $v.Gametype 2}}
+          <span class="text-success bigger-110 green">三公</span>
+          {{else if eq $v.Gametype 3}}
+          <span class="text-success bigger-110 green">牌九</span>
+          {{else}}
+          <span class="text-warning bigger-110 red">其它</span>
+          {{end}}</td>
+					<td>{{if eq $v.Roomtype 0}}
+          <span class="text-success bigger-110 green">免佣</span>
+          {{else if eq $v.Roomtype 1}}
+          <span class="text-success bigger-110 green">抽佣</span>
+          {{else}}
+          <span class="text-warning bigger-110 red">其它</span>
+          {{end}}</td>
+					<td>{{$v.Userid}}</td>
+					<td>{{$v.Expect}}</td>
+          <td>{{if $v.Robot}}
+          <span class="text-success bigger-110 green">是</span>
+          {{else}}
+          <span class="text-success bigger-110 green">否</span>
+          {{end}}</td>
+					<td>{{$v.Profitsf}}</td>
+					<td>{{$v.Betsf}}</td>
+					<td>{{$v.Restf}}</td>
+					<td>{{date $v.Ctime "Y-m-d H:i:s"}}</td>
+					<td>
+					<a href="{{urlfor "AgencyController.UserRecordDetails" "id" $v.Roomid "userid" $v.Userid}}">详细</a> |
+					</td>
+
+				</tr>
+			{{end}}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="10">{{str2html .pageBar}}</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>

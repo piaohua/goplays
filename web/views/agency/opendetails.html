@@ -1,0 +1,107 @@
+<div class="row">
+	<div class="col-xs-12">
+	</div>
+</div>
+		
+<div class="space-4"></div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-inline" method="post" action="{{urlfor "AgencyController.OpenDetails"}}">
+			<input type="hidden" name="id" value="{{.id}}" />
+
+		</div>
+	</div>
+		</form>
+		<div class="space-4"></div>
+
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+			<tr>
+				<th>排名(降序)</th>
+				<th>位置</th>
+				<th>点数</th>
+				<th>牌值</th>
+			</tr>
+			</thead>
+      <tbody>
+			{{range $k, $v := .trend}}
+
+				<tr>
+					<td>{{$v.Rank}}</td>
+					<td>{{$v.Seat}}</td>
+					<td>{{$v.Point}}</td>
+					<td>{{$v.Cards}}</td>
+
+				</tr>
+			{{end}}
+
+			<thead>
+			<tr>
+				<th>玩家ID</th>
+				<th>下注总额</th>
+				<th>输赢总额</th>
+				<th>退款</th>
+				<th>操作</th>
+			</tr>
+			</thead>
+      <tbody>
+			{{range $k, $v := .result}}
+
+				<tr>
+					<td>{{$v.Userid}}</td>
+					<td>{{$v.Betsf}}</td>
+					<td>{{$v.Winsf}}</td>
+					<td>{{$v.Refundf}}</td>
+					<td>
+					<a href="{{urlfor "AgencyController.UserRecordDetails" "id" $.id "userid" $v.Userid}}">详细</a> |
+					</td>
+
+				</tr>
+
+			{{end}}
+			</tbody>
+
+			<thead>
+			<tr>
+				<th>玩家ID</th>
+				<th>反佣数量</th>
+			</tr>
+			</thead>
+      <tbody>
+			{{range $k, $v := .record}}
+
+				<tr>
+					<td>{{$v.Userid}}</td>
+					<td>{{$v.Feef}}</td>
+				</tr>
+
+			{{end}}
+			</tbody>
+
+			<thead>
+			<tr>
+				<th>位置</th>
+				<th>抽佣数量</th>
+			</tr>
+			</thead>
+      <tbody>
+			{{range $k, $v := .details}}
+
+				<tr>
+					<td>{{$v.Seat}}</td>
+					<td>{{$v.Feef}}</td>
+				</tr>
+
+			{{end}}
+			</tbody>
+
+			<tfoot>
+				<tr>
+          <a href="{{urlfor "AgencyController.HistoryOpen"}}" class="btn btn-default"><i class="ace-icon fa fa-reply bigger-110"></i>返回</a>
+				</tr>
+			</tfoot>
+		</table>
+
+	</div>
+</div>

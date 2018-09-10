@@ -1,0 +1,41 @@
+
+<div class="alert alert-warning alert-dismissible hide" role="alert"></div>
+
+<form class="form-horizontal ajax-form" method="post" action="{{urlfor "AgencyController.Give2DirectlyAgency"}}">
+	<input type="hidden" name="id" value="{{.user.Userid}}" />
+	<div class="form-group">
+		<label for="id" class="col-sm-2 control-label">玩家ID</label>
+		<div class="col-sm-3">
+			<label class="control-label">{{.user.Userid}}</label>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="nickname" class="col-sm-2 control-label">玩家昵称</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="nickname" name="nickname" value="{{.user.Nickname}}" disabled>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="chip" class="col-sm-2 control-label">自己筹码余额</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="chip" name="chip" value="{{.user2.Chip}}" disabled>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="chip" class="col-sm-2 control-label">发放筹码数量</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="chip" name="chip">
+		</div>
+		<div class="help-block col-xs-12 col-sm-reset inline">
+			赠送筹码到游戏账号中
+		</div>
+	</div>
+	
+	<div class="clearfix form-actions">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-info"><i class="ace-icon fa fa-check bigger-110"></i>提交</button>
+			<a href="{{urlfor "AgencyController.DirectlyAgency"}}" class="btn btn-default"><i class="ace-icon fa fa-reply bigger-110"></i>返回</a>
+		</div>
+	</div>
+</form>

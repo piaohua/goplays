@@ -1,0 +1,48 @@
+<div class="row">
+	<div class="col-xs-12">
+	</div>
+</div>
+		
+<div class="space-4"></div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-inline" method="post" action="{{urlfor "AgencyController.UserRecordDetails"}}">
+			<input type="hidden" name="id" value="{{.id}}" />
+			<input type="hidden" name="userid" value="{{.userid}}" />
+
+		</div>
+	</div>
+		</form>
+		<div class="space-4"></div>
+
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+			<tr>
+				<th>位置</th>
+				<th>位置下注</th>
+				<th>位置输赢</th>
+				<th>位置退款</th>
+			</tr>
+			</thead>
+      <tbody>
+			{{range $k, $v := .details}}
+
+				<tr>
+					<td>{{$v.Seat}}</td>
+					<td>{{$v.Betsf}}</td>
+					<td>{{$v.Winsf}}</td>
+					<td>{{$v.Refundf}}</td>
+
+				</tr>
+			{{end}}
+
+			<tfoot>
+				<tr>
+          <a href="{{urlfor "AgencyController.UserRecord"}}" class="btn btn-default"><i class="ace-icon fa fa-reply bigger-110"></i>返回</a>
+				</tr>
+			</tfoot>
+		</table>
+
+	</div>
+</div>

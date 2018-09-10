@@ -1,0 +1,148 @@
+
+<div class="alert alert-warning alert-dismissible hide" role="alert"></div>
+
+<form class="form-horizontal ajax-form" method="post" action="{{urlfor "PlayerController.GameAdd"}}">
+
+  <div class="form-group">
+    <label for="node" class="col-sm-2 control-label">节点</label>
+    <div class="col-sm-3">
+      <select name="node">
+        {{range $k,$v := .types1}}
+        <option value="{{$k}}" {{if eq $k 1}}selected{{end}}>{{$v}}</option>
+        {{end}}
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="gtype" class="col-sm-2 control-label">玩法类型</label>
+    <div class="col-sm-3">
+      <select name="gtype">
+        {{range $k,$v := .types2}}
+        <option value="{{$k}}" {{if eq $k 1}}selected{{end}}>{{$v}}</option>
+        {{end}}
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="rtype" class="col-sm-2 control-label">房间类型</label>
+    <div class="col-sm-3">
+      <select name="rtype">
+        {{range $k,$v := .types3}}
+        <option value="{{$k}}" {{if eq $k 0}}selected{{end}}>{{$v}}</option>
+        {{end}}
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="roomstatus" class="col-sm-2 control-label">房间状态</label>
+    <div class="col-sm-3">
+      <select name="roomstatus">
+        {{range $k,$v := .types4}}
+        <option value="{{$k}}" {{if eq $k 1}}selected{{end}}>{{$v}}</option>
+        {{end}}
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="ltype" class="col-sm-2 control-label">彩种类型</label>
+    <div class="col-sm-3">
+      <select name="ltype">
+        {{range $k,$v := .types5}}
+        <option value="{{$k}}" {{if eq $k 1}}selected{{end}}>{{$v}}</option>
+        {{end}}
+      </select>
+    </div>
+  </div>
+
+	<div class="form-group">
+		<label for="name" class="col-sm-2 control-label">房间名字</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="name" name="name">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="count" class="col-sm-2 control-label">房间人数</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="count" name="count">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="ante" class="col-sm-2 control-label">房间底分</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="ante" name="ante">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="cost" class="col-sm-2 control-label">房间抽佣百分比(1-100)</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="cost" name="cost">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="vip" class="col-sm-2 control-label">房间VIP限制</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="vip" name="vip">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="chip" class="col-sm-2 control-label">房间进入筹码限制</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="chip" name="chip">
+		</div>
+	</div>
+
+  <div class="form-group">
+    <label for="deal" class="col-sm-2 control-label">是否可以上庄</label>
+    <div class="col-sm-3">
+      <select name="deal">
+        {{range $k,$v := .types6}}
+        <option value="{{$k}}" {{if eq $k 0}}selected{{end}}>{{$v}}</option>
+        {{end}}
+      </select>
+    </div>
+  </div>
+
+	<div class="form-group">
+		<label for="carry" class="col-sm-2 control-label">上庄最小携带</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="carry" name="carry">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="down" class="col-sm-2 control-label">下庄最小限制</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="down" name="down">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="top" class="col-sm-2 control-label">下庄最大限制</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="top" name="top">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="sit" class="col-sm-2 control-label">房间坐下限制</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="sit" name="sit">
+		</div>
+	</div>
+
+	<div class="clearfix form-actions">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-info"><i class="ace-icon fa fa-check bigger-110"></i>提交</button>
+			<a href="{{urlfor "PlayerController.GameList"}}" class="btn btn-default"><i class="ace-icon fa fa-reply bigger-110"></i>返回</a>
+		</div>
+	</div>
+</form>

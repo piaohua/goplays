@@ -1,0 +1,257 @@
+[
+	{
+		"name": "玩家管理",
+		"icon": "fa-bars",
+		"route": "#",
+		"submenu": [
+			{
+				"name": "玩家列表",
+				"route": "player.list",
+				"action": "PlayerController.List"
+			},
+			{
+				"name": "我的玩家列表",
+				"route": "player.minelist",
+				"action": "PlayerController.MineList"
+			},
+			{
+				"name": "公告列表",
+				"route": "player.noticelist",
+				"action": "PlayerController.NoticeList"
+			},
+			{
+				"name": "商城列表",
+				"route": "player.shoplist",
+				"action": "PlayerController.ShopList"
+			},
+			{
+				"name": "变量列表",
+				"route": "player.envlist",
+				"action": "PlayerController.EnvList"
+			},
+			{
+				"name": "游戏房间",
+				"route": "player.gamelist",
+				"action": "PlayerController.GameList"
+			},
+			{
+				"name": "充值记录",
+				"route": "logger.giverecordlist",
+				"action": "LoggerController.GiveRecordList"
+			},
+			{
+				"name": "我的充值记录",
+				"route": "logger.minegiverecordlist",
+				"action": "LoggerController.MineGiveRecordList"
+			},
+			{
+				"name": "账务统计",
+				"route": "logger.accountinglist",
+				"action": "LoggerController.AccountingList"
+			},
+			{
+				"name": "VIP列表",
+				"route": "player.viplist",
+				"action": "PlayerController.VipList"
+			}
+		]
+	},
+	{
+		"name": "日志管理",
+		"icon": "fa-bars",
+		"route": "#",
+		"submenu": [
+			{
+				"name": "注册日志",
+				"route": "logger.registlist",
+				"action": "LoggerController.RegistList"
+			},
+			{
+				"name": "登录日志",
+				"route": "logger.loginlist",
+				"action": "LoggerController.LoginList"
+			},
+			{
+				"name": "充值日志",
+				"route": "logger.paylist",
+				"action": "LoggerController.PayList"
+			},
+			{
+				"name": "钻石日志",
+				"route": "logger.diamondlist",
+				"action": "LoggerController.DiamondList"
+			},
+			{
+				"name": "金币日志",
+				"route": "logger.coinlist",
+				"action": "LoggerController.CoinList"
+			},
+			{
+				"name": "筹码日志",
+				"route": "logger.chiplist",
+				"action": "LoggerController.ChipList"
+			},
+			{
+				"name": "绑定日志",
+				"route": "logger.buildlist",
+				"action": "LoggerController.BuildList"
+			},
+			{
+				"name": "开奖日志",
+				"route": "logger.expectlist",
+				"action": "LoggerController.ExpectList"
+			},
+			{
+				"name": "房间日志",
+				"route": "logger.gamerecordlist",
+				"action": "LoggerController.GameRecordList"
+			},
+			{
+				"name": "单局日志",
+				"route": "logger.userrecordlist",
+				"action": "LoggerController.UserRecordList"
+			},
+			{
+				"name": "盈亏统计",
+				"route": "logger.chiptodaylist",
+				"action": "LoggerController.ChipTodayList"
+			},
+			{
+				"name": "充值统计",
+				"route": "logger.paytodaylist",
+				"action": "LoggerController.PayTodayList"
+			},
+			{
+				"name": "注册统计",
+				"route": "logger.registtodaylist",
+				"action": "LoggerController.RegistTodayList"
+			}
+		]
+	},
+	{
+		"name": "统计图表",
+		"icon": "fa-bars",
+		"route": "#",
+		"submenu": [
+			{
+				"name": "在线统计",
+				"route": "charts.online",
+				"action": "ChartsController.Online"
+			},
+			{
+				"name": "注册统计",
+				"route": "charts.regist",
+				"action": "ChartsController.Regist"
+			},
+			{
+				"name": "充值统计",
+				"route": "charts.pay",
+				"action": "ChartsController.Pay"
+			}
+		]
+	},
+	{
+		"name": "代理管理",
+		"icon": "fa-bars",
+		"route": "#",
+		"submenu": [
+			{
+				"name": "总代列表",
+				"route": "agency.agencylist",
+				"action": "AgencyController.AgencyList"
+			},
+			{
+				"name": "我的总代列表",
+				"route": "agency.mineagencylist",
+				"action": "AgencyController.MineAgencyList"
+			},
+			{
+				"name": "提现记录",
+				"route": "agency.cashlist",
+				"action": "AgencyController.CashList"
+			},
+			{
+				"name": "我的提现记录",
+				"route": "agency.minecashlist",
+				"action": "AgencyController.MineCashList"
+			},
+			{
+				"name": "历史开奖",
+				"route": "agency.historyopen",
+				"action": "AgencyController.HistoryOpen"
+			},
+			{
+				"name": "玩家记录",
+				"route": "agency.userrecord",
+				"action": "AgencyController.UserRecord"
+			},
+			{
+				"name": "我的玩家记录",
+				"route": "agency.mineuserrecord",
+				"action": "AgencyController.MineUserRecord"
+			},
+			{
+				"name": "抽佣明细",
+				"route": "agency.feechiplist",
+				"action": "AgencyController.FeeChipList"
+			},
+			{
+				"name": "我的抽佣明细",
+				"route": "agency.minefeechiplist",
+				"action": "AgencyController.MineFeeChipList"
+			},
+			{
+				"name": "直属代理",
+				"route": "agency.directlyagency",
+				"action": "AgencyController.DirectlyAgency"
+			},
+			{
+				"name": "直属玩家",
+				"route": "agency.directlyplayer",
+				"action": "AgencyController.DirectlyPlayer"
+			},
+			{
+				"name": "添加代理",
+				"route": "agency.addagency",
+				"action": "AgencyController.AddAgency"
+			},
+			{
+				"name": "推广海报",
+				"route": "agency.poster",
+				"action": "AgencyController.Poster"
+			},
+			{
+				"name": "我的代理",
+				"route": "agency.myagencylist",
+				"action": "AgencyController.MyAgencyList"
+			},
+			{
+				"name": "我的提现",
+				"route": "agency.mycashlist",
+				"action": "AgencyController.MyCashList"
+			},
+			{
+				"name": "我的充值",
+				"route": "agency.mypaylist",
+				"action": "AgencyController.MyPayList"
+			}
+		]
+	},
+	{
+		"name": "系统管理",
+		"icon": "fa-cog",
+		"route": "#",
+		"submenu": [
+			{
+				"name": "角色管理",
+				"route": "role.list",
+				"action": "RoleController.List"
+			},
+			{
+				"name": "用户管理",
+				"route": "user.list",
+				"action": "UserController.List"
+			}
+		]
+	}
+]

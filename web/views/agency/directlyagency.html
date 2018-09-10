@@ -1,0 +1,91 @@
+<div class="row">
+	<div class="col-xs-12">
+	</div>
+</div>
+		
+<div class="space-4"></div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-inline" method="post" action="{{urlfor "AgencyController.DirectlyAgency"}}">
+			<input type="hidden" name="status" value="{{.status}}" />
+      <input type="hidden" name="id" value="{{.id}}" />
+			<div class="input-group input-group-sm">
+				<input type="text" id="start_date" name="start_date" value="{{.startDate}}" class="form-control" />
+				<span class="input-group-addon">
+					<i class="ace-icon fa fa-calendar"></i>
+				</span>
+			</div>
+			<div class="input-group input-group-sm">
+				<input type="text" id="end_date" name="end_date" value="{{.endDate}}" class="form-control" />
+				<span class="input-group-addon">
+					<i class="ace-icon fa fa-calendar"></i>
+				</span>
+			</div>
+			<div class="input-group input-group-sm">
+				<input type="text" id="userid" name="userid" value="{{.userid}}" class="form-control" placeholder="邀请码" />
+        <span class="input-group-addon">
+          <i class="ace-icon fa fa-users"></i>
+        </span>
+			</div>
+      <!--
+			<div class="input-group input-group-sm">
+				<select name="type_id">
+					{{range $k,$v := .types2}}
+					<option value="{{$k}}" {{if eq $.typeId $k}}selected{{end}}>{{$v}}</option>
+					{{end}}
+				</select>
+			</div>
+      -->
+			<div class="input-group input-group-sm">
+				<button type="submit" class="btn">查询</button>
+			</div>
+		</div>
+	</div>
+		</form>
+		<div class="space-4"></div>
+
+
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+			<tr>
+				<th>账号</th>
+				<th>邀请码</th>
+				<th>反佣抽成</th>
+				<th>收益余额</th>
+				<th>历史反佣</th>
+				<th>已经提取</th>
+				<th>历史抽成</th>
+				<th>绑定时间</th>
+				<th>操作</th>
+			</tr>
+			</thead>
+      <tbody>
+			{{range $k, $v := .list}}
+				<tr>
+					<td>{{$v.UserName}}</td>
+					<td>{{$v.Agent}}</td>
+					<td>{{$v.Rate}}%</td>
+					<td>{{$v.FeeAllf}}</td>
+					<td>{{$v.FeeTopf}}</td>
+					<td>{{$v.FeeExtractf}}</td>
+					<td>{{$v.FeeRatef}}</td>
+					<td>{{date $v.CreateTime "Y-m-d H:i:s"}}</td>
+					</td>
+					<td>
+            <!--<a href="{{urlfor "AgencyController.Give2DirectlyAgency" "id" $v.Agent}}">发放</a> |-->
+					<a href="{{urlfor "AgencyController.SetDirectlyAgency" "id" $v.Agent}}">设置</a> |
+					<a href="{{urlfor "AgencyController.DirectlyAgency" "id" $v.Agent}}">下属代理</a> |
+					<a href="{{urlfor "AgencyController.DirectlyPlayer" "id" $v.Agent}}">下属玩家</a> |
+					</td>
+				</tr>
+			{{end}}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="10">{{str2html .pageBar}}</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>

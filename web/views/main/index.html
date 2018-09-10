@@ -1,0 +1,910 @@
+<div class="row">
+	<div class="space-6"></div>
+
+  <!--
+	<div class="col-sm-12 infobox-container">
+		<div class="infobox infobox-pink">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-desktop"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.cashNum}}元</span>
+				<div class="infobox-content">可提现</div>
+			</div>
+		</div>
+    -->
+    <!--
+		<div class="infobox infobox-green">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-globe"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.extractNum}}元</span>
+				<div class="infobox-content">已提现</div>
+			</div>
+		</div>
+    -->
+    <!--
+		<div class="infobox infobox-green">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-globe"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.number}}钻石</span>
+				<div class="infobox-content">余额</div>
+			</div>
+		</div>
+		
+		<div class="infobox infobox-red">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-users"></i>
+			</div>
+
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.buildNum}}</span>
+				<div class="infobox-content">位绑定</div>
+			</div>
+		</div>
+
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.payNum}}</span>
+				<div class="infobox-content">次充值</div>
+			</div>
+		</div>
+	</div>
+  -->
+
+  {{if eq .isagent 1}}
+
+	<div class="col-sm-12 infobox-container">
+    <!--
+		<div class="infobox infobox-pink">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-desktop"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.agencystat.Chip}}</span>
+				<div class="infobox-content">筹码</div>
+			</div>
+		</div>
+		<div class="infobox infobox-green">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-globe"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.agencystat.Card}}</span>
+				<div class="infobox-content">房卡</div>
+			</div>
+		</div>
+		<div class="infobox infobox-green">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-globe"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.agencystat.Coin}}</span>
+				<div class="infobox-content">金币</div>
+			</div>
+		</div>
+    -->
+		<div class="infobox infobox-red">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-users"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.agencystat.UnderlingAgency}}</span>
+				<div class="infobox-content">位下属代理</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.agencystat.UnderlingPlayer}}</span>
+				<div class="infobox-content">位下属玩家</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.agencystat.TodayBetsf}}</span>
+				<div class="infobox-content">今日注额</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.agencystat.TodayProfitsf}}</span>
+				<div class="infobox-content">今日收益</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.agencystat.AllProfitsf}}</span>
+				<div class="infobox-content">全部收益(可提现)</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.agencystat.TopProfitsf}}</span>
+				<div class="infobox-content">历史收益</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.agencystat.ExtractProfitsf}}</span>
+				<div class="infobox-content">已提现</div>
+			</div>
+		</div>
+	</div>
+
+  {{else}}
+
+	<div class="col-sm-12 infobox-container">
+		<div class="infobox infobox-pink">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-desktop"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.userstat.TodayNewPlayers}}</span>
+				<div class="infobox-content">今日新增会员</div>
+			</div>
+		</div>
+		<div class="infobox infobox-green">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-globe"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.userstat.YesterdayNewPlayers}}</span>
+				<div class="infobox-content">昨天新增</div>
+			</div>
+		</div>
+		<div class="infobox infobox-green">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-globe"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.userstat.AllPlayers}}</span>
+				<div class="infobox-content">会员总数</div>
+			</div>
+		</div>
+		<div class="infobox infobox-red">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-users"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.userstat.Chipsf}}</span>
+				<div class="infobox-content">用户持有筹码总数</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.userstat.Cards}}</span>
+				<div class="infobox-content">用户持有房卡总数</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.userstat.Coins}}</span>
+				<div class="infobox-content">用户持有金币总数</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.userstat.TodayFeef}}</span>
+				<div class="infobox-content">今日抽佣</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.userstat.YesterdayFeef}}</span>
+				<div class="infobox-content">昨天抽佣</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.userstat.AllFeef}}</span>
+				<div class="infobox-content">抽佣总数</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.userstat.TodayAgentFeef}}</span>
+				<div class="infobox-content">今日代理抽佣</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.userstat.YesterdayAgentFeef}}</span>
+				<div class="infobox-content">昨天代理抽佣</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.userstat.AgentAllFeef}}</span>
+				<div class="infobox-content">代理抽佣总数</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.userstat.TodayNewAgent}}</span>
+				<div class="infobox-content">今日新增代理</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.userstat.YesterdayNewAgent}}</span>
+				<div class="infobox-content">昨天新增代理</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.userstat.AllAgent}}</span>
+				<div class="infobox-content">代理总数</div>
+			</div>
+		</div>
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.robotNum}}</span>
+				<div class="infobox-content">在线机器人</div>
+			</div>
+		</div>
+
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.roleNum}}</span>
+				<div class="infobox-content">在线玩家</div>
+			</div>
+		</div>
+
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.robotProfitsToday}}</span>
+				<div class="infobox-content">机器人今日输赢</div>
+			</div>
+		</div>
+
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.robotProfitsYesterday}}</span>
+				<div class="infobox-content">机器人昨日输赢</div>
+			</div>
+		</div>
+
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.robotProfitsAll}}</span>
+				<div class="infobox-content">机器人总输赢</div>
+			</div>
+		</div>
+
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.giveAll}}</span>
+				<div class="infobox-content">总充值筹码</div>
+			</div>
+		</div>
+
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.extractAll}}</span>
+				<div class="infobox-content">总已提现金额</div>
+			</div>
+		</div>
+
+		<div class="infobox infobox-blue">
+			<div class="infobox-icon">
+				<i class="ace-icon fa fa-bar-chart-o"></i>
+			</div>
+			<div class="infobox-data">
+				<span class="infobox-data-number">{{.feeAll}}</span>
+				<div class="infobox-content">总可提现金额</div>
+			</div>
+		</div>
+
+	</div>
+
+  {{end}}
+
+</div>
+
+<!--
+<div class="hr"></div>
+
+<div class="row">
+	<div class="col-xs-6">
+		<div class="widget-box transparent">
+			<div class="widget-header widget-header-flat">
+				<h4 class="widget-title lighter">
+					<i class="ace-icon fa fa-signal orange"></i>
+					绑定统计
+				</h4>
+				<div class="widget-toolbar no-border">
+					<div class="inline dropdown-hover">
+						<button class="btn btn-minier">
+							本月
+							<i class="ace-icon fa fa-angle-down icon-on-right bigger-110"></i>
+						</button>
+						<ul id="range" class="dropdown-menu dropdown-menu-right dropdown-125 dropdown-lighter dropdown-close dropdown-caret">
+							<li class="active">
+								<a href="this_month" class="blue">
+									<i class="ace-icon fa fa-caret-right bigger-110">&nbsp;</i>本月
+								</a>
+							</li>
+							<li>
+								<a href="last_month">
+									<i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>上月
+								</a>
+							</li>
+							<li>
+								<a href="this_year">
+									<i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>今年
+								</a>
+							</li>
+							<li>
+								<a href="last_year">
+									<i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>去年
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="widget-body">
+				<div class="widget-main padding-4">
+					<div id="chart-sale"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-xs-6">
+		<div class="widget-box transparent">
+			<div class="widget-header widget-header-flat">
+				<h4 class="widget-title lighter">
+					<i class="ace-icon fa fa-star orange"></i>
+					活跃用户
+				</h4>
+			</div>
+
+			<div class="widget-body">
+				<div class="widget-main no-padding">
+					<table class="table table-bordered table-striped">
+						<thead class="thin-border-bottom">
+							<tr>
+								<th>
+									<i class="ace-icon fa fa-caret-right blue"></i>昵称
+								</th>
+
+								<th>
+									<i class="ace-icon fa fa-caret-right blue"></i>充值总数
+								</th>
+
+								<th class="hidden-480">
+									<i class="ace-icon fa fa-caret-right blue"></i>当前金额
+								</th>
+							</tr>
+						</thead>
+
+						<tbody>
+						{{range $k, $v := .popProjects}}
+							<tr>
+								<td>{{$v.project_name}}</td>
+								<td>
+									<b class="green">{{$v.count}}</b>
+								</td>
+								<td class="hidden-480">
+									{{$v.version}} ({{$v.version_time}})
+								</td>
+							</tr>
+						{{end}}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+-->
+
+<div class="hr"></div>
+
+<div class="row">
+
+  {{if eq .isagent 1}}
+	<div class="col-xs-6">
+    <input type="hidden" id="agentStat1" name="agentStat1" value="{{.agentStat1}}" />
+    <input type="hidden" id="agentStat2" name="agentStat2" value="{{.agentStat2}}" />
+    <input type="hidden" id="agentStat3" name="agentStat3" value="{{.agentStat3}}" />
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="agentStat" style="width: 500px;height:300px;"></div>
+	</div>
+
+  {{else}}
+	<div class="col-xs-6">
+    <input type="hidden" id="playerStat1" name="playerStat1" value="{{.playerStat1}}" />
+    <input type="hidden" id="playerStat2" name="playerStat2" value="{{.playerStat2}}" />
+    <input type="hidden" id="playerStat3" name="playerStat3" value="{{.playerStat3}}" />
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="playerStat" style="width: 500px;height:300px;"></div>
+	</div>
+
+	<div class="col-xs-6">
+    <input type="hidden" id="robotStat1" name="robotStat1" value="{{.robotStat1}}" />
+    <input type="hidden" id="robotStat2" name="robotStat2" value="{{.robotStat2}}" />
+    <input type="hidden" id="robotStat3" name="robotStat3" value="{{.robotStat3}}" />
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="robotStat" style="width: 500px;height:300px;"></div>
+	</div>
+  {{end}}
+
+</div>
+
+<div class="hr hr32 hr-dotted"></div>
+
+<div class="row">
+
+	<div class="col-xs-6">
+		<div class="widget-box transparent">
+			<div class="widget-header widget-header-flat">
+				<h4 class="widget-title lighter">
+					<i class="ace-icon fa fa-rss orange"></i>
+					最新动态
+				</h4>
+			</div>
+
+			<div class="widget-body">
+				<div class="widget-main no-padding">
+						{{range $k, $v := .feeds}}
+						<div class="profile-activity clearfix">
+							{{date $v.CreateTime "m-d H:i:s"}}，{{str2html $v.Message}}				
+						</div>
+						{{end}}
+				</div><!-- /.widget-main -->
+			</div><!-- /.widget-body -->
+		</div>
+	</div>
+	
+	<div class="col-xs-6">
+		<div class="widget-box transparent">
+			<div class="widget-header widget-header-flat">
+				<h4 class="widget-title lighter">
+					<i class="ace-icon fa fa-info-circle orange"></i>
+					系统信息
+				</h4>
+			</div>
+
+			<div class="widget-body">
+				<div class="widget-main no-padding">
+					<ul class="item-list">
+
+						<li class="item-green clearfix ui-sortable-handle">
+							联系客服：QQ(),电话()
+						</li>
+
+            <!--
+						<li class="item-blue clearfix ui-sortable-handle">
+							运行环境：{{.os}} ({{.arch}}), CPU Num: {{.cpuNum}}, {{.gover}}, goroutine: {{.goroutineNum}}
+						</li>
+
+						<li class="item-green clearfix ui-sortable-handle">
+							启动时间：{{.uptime}}
+						</li>
+
+						<li class="item-pink clearfix ui-sortable-handle">
+							程序作者：<a href="https://github.com/lisijie" target="_blank">李思杰（Jesse.Li）</a>，特别鸣谢：黄忠信（Muses）
+						</li>
+            -->
+					</ul>
+				</div><!-- /.widget-main -->
+			</div><!-- /.widget-body -->
+		</div>
+	</div>
+	
+</div>
+
+<script type="text/javascript">
+
+$("<div id='chart_tooltip'></div>").css({
+		position: "absolute",
+		display: "none",
+		border: "1px solid #000",
+		color: "#fff",
+		padding: "2px",
+		"background-color": "#333",
+		opacity: 0.60
+	}).appendTo("body");
+	
+$('#chart-sale').css({'width':'100%' , 'min-height':'230px'});
+
+$('#range a').on('click', function(e) {
+	e.preventDefault();
+	$(this).parent().parent().find('li').removeClass('active');
+	$(this).parent().parent().find('li .blue i').addClass('invisible');
+	$(this).parent().parent().find('li a').removeClass('blue');
+	$(this).parent().addClass('active');
+	$(this).addClass('blue');
+	$(this).find('i').removeClass('invisible');
+	
+	$('#range').parent().find('button').html($(this).text() + '<i class="ace-icon fa fa-angle-down icon-on-right bigger-110"></i>');
+	
+	$.ajax({
+		type: 'get',
+		url: '/main/getpubstat?range=' + $(this).attr('href'),
+		dataType: 'json',
+		success: function(json) {
+			var option = {
+				bars: {
+					show: true,
+					fill: true,
+					lineWidth: 1
+				},
+				grid: {hoverable: true, clickable: true},
+				yaxis: { ticks: 10, min: 0, tickDecimals:0 },
+				xaxis: {
+					show: true,	
+					ticks: json.ticks
+				}
+			};
+			$.plot('#chart-sale', [{"label":"绑定人数","data":json.chart}], option);
+			
+			$('#chart-sale').bind('plothover', function(event, pos, item) {
+				if (item) {
+					var x = option.xaxis.ticks[item.datapoint[0].toFixed(0)-1][2],
+						y = item.datapoint[1].toFixed(0);
+		
+					$("#chart_tooltip").html(x + ', ' + item.series.label + ": " + y)
+						.css({top: item.pageY+5, left: item.pageX+5})
+						.fadeIn(200);
+				} else {
+					$("#chart_tooltip").hide();
+				}
+		
+			});
+		}
+	});
+});
+
+$('#range .active a').trigger('click');
+
+</script>
+
+
+<script type="text/javascript">
+
+  // 基于准备好的dom，初始化echarts实例
+  var myChart = echarts.init(document.getElementById('robotStat'));
+var str1 = document.getElementById('robotStat1').value;
+var str2 = document.getElementById('robotStat2').value;
+var str3 = document.getElementById('robotStat3').value;
+var data1 = JSON.parse(str1);
+var data2 = JSON.parse(str2);
+var data3 = JSON.parse(str3);
+
+var option = {
+  title: {
+    text: '机器人统计数据',
+    subtext: '数据来自汇银'
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
+    }
+  },
+  toolbox: {
+    show : true,
+    feature : {
+      dataView : {show: true, readOnly: false},
+      magicType : {show: true, type: ['line', 'bar']},
+      restore : {show: true},
+      saveAsImage : {show: true}
+    }
+  },
+  legend: {
+    data: ['本周', '上周', '上上周']
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: {
+    type: 'value',
+    boundaryGap: [0, 0.01]
+  },
+  yAxis: {
+    type: 'category',
+    data: ['机器人注额','机器人盈亏','机器人抽佣']
+  },
+  series: [
+    {
+      name: '本周',
+      type: 'bar',
+      label: {
+        normal: {
+          show: true,
+          position: 'insideRight'
+        }
+      },
+      data: data1
+    },
+    {
+      name: '上周',
+      type: 'bar',
+      label: {
+        normal: {
+          show: true,
+          position: 'insideRight'
+        }
+      },
+      data: data2
+    },
+    {
+      name: '上上周',
+      type: 'bar',
+      label: {
+        normal: {
+          show: true,
+          position: 'insideRight'
+        }
+      },
+      data: data3
+    }
+  ]
+};
+
+// 使用刚指定的配置项和数据显示图表。
+myChart.setOption(option);
+</script>
+
+<script type="text/javascript">
+
+  // 基于准备好的dom，初始化echarts实例
+  var myChart2 = echarts.init(document.getElementById('playerStat'));
+var str1 = document.getElementById('playerStat1').value;
+var str2 = document.getElementById('playerStat2').value;
+var str3 = document.getElementById('playerStat3').value;
+var data1 = JSON.parse(str1);
+var data2 = JSON.parse(str2);
+var data3 = JSON.parse(str3);
+
+var option2 = {
+  title: {
+    text: '玩家统计数据',
+    subtext: '数据来自汇银'
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
+    }
+  },
+  toolbox: {
+    show : true,
+    feature : {
+      dataView : {show: true, readOnly: false},
+      magicType : {show: true, type: ['line', 'bar']},
+      restore : {show: true},
+      saveAsImage : {show: true}
+    }
+  },
+  legend: {
+    data: ['本周', '上周', '上上周']
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: {
+    type: 'value',
+    boundaryGap: [0, 0.01]
+  },
+  yAxis: {
+    type: 'category',
+    data: ['玩家注额','玩家盈亏','玩家抽佣']
+  },
+  series: [
+    {
+      name: '本周',
+      type: 'bar',
+      label: {
+        normal: {
+          show: true,
+          position: 'insideRight'
+        }
+      },
+      data: data1
+    },
+    {
+      name: '上周',
+      type: 'bar',
+      label: {
+        normal: {
+          show: true,
+          position: 'insideRight'
+        }
+      },
+      data: data2
+    },
+    {
+      name: '上上周',
+      type: 'bar',
+      label: {
+        normal: {
+          show: true,
+          position: 'insideRight'
+        }
+      },
+      data: data3
+    }
+  ]
+};
+
+// 使用刚指定的配置项和数据显示图表。
+myChart2.setOption(option2);
+</script>
+
+<script type="text/javascript">
+
+  // 基于准备好的dom，初始化echarts实例
+  var myChart3 = echarts.init(document.getElementById('agentStat'));
+var str1 = document.getElementById('agentStat1').value;
+var str2 = document.getElementById('agentStat2').value;
+var str3 = document.getElementById('agentStat3').value;
+var data1 = JSON.parse(str1);
+var data2 = JSON.parse(str2);
+var data3 = JSON.parse(str3);
+
+var option2 = {
+  title: {
+    text: '下线代理统计数据',
+    subtext: '数据来自汇银'
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
+    }
+  },
+  toolbox: {
+    show : true,
+    feature : {
+      dataView : {show: true, readOnly: false},
+      magicType : {show: true, type: ['line', 'bar']},
+      restore : {show: true},
+      saveAsImage : {show: true}
+    }
+  },
+  legend: {
+    data: ['本周', '上周', '上上周']
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: {
+    type: 'value',
+    boundaryGap: [0, 0.01]
+  },
+  yAxis: {
+    type: 'category',
+    data: ['玩家注额','玩家盈亏','玩家抽佣']
+  },
+  series: [
+    {
+      name: '本周',
+      type: 'bar',
+      label: {
+        normal: {
+          show: true,
+          position: 'insideRight'
+        }
+      },
+      data: data1
+    },
+    {
+      name: '上周',
+      type: 'bar',
+      label: {
+        normal: {
+          show: true,
+          position: 'insideRight'
+        }
+      },
+      data: data2
+    },
+    {
+      name: '上上周',
+      type: 'bar',
+      label: {
+        normal: {
+          show: true,
+          position: 'insideRight'
+        }
+      },
+      data: data3
+    }
+  ]
+};
+
+// 使用刚指定的配置项和数据显示图表。
+myChart3.setOption(option2);
+</script>

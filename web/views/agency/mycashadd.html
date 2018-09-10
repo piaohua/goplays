@@ -1,0 +1,51 @@
+
+<div class="alert alert-warning alert-dismissible hide" role="alert"></div>
+
+<form class="form-horizontal ajax-form" method="post" action="{{urlfor "AgencyController.MyCashAdd"}}">
+	
+	<div class="form-group">
+		<label for="name" class="col-sm-2 control-label">真实姓名</label>
+		<div class="col-sm-3">
+      <input type="text" class="form-control" id="name" name="name" placeholder="真实姓名">
+		</div>
+	</div>
+	
+  <div class="form-group">
+    <label for="bankCard" class="col-sm-2 control-label">收款方式</label>
+    <div class="col-sm-3">
+      <select name="bankCard">
+        {{range $k,$v := .payway}}
+        <option value="{{$k}}" {{if eq $k 1}}selected{{end}}>{{$v}}</option>
+        {{end}}
+      </select>
+    </div>
+  </div>
+
+	<div class="form-group">
+		<label for="bankAddr" class="col-sm-2 control-label">收款账号</label>
+		<div class="col-sm-3">
+      <input type="text" class="form-control" id="bankAddr" name="bankAddr" placeholder="开户行和地址/微信ID/支付宝">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="fee_all" class="col-sm-2 control-label">可提现金额(单位:元)</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="fee_all" name="fee_all" value="{{.FeeAll}}" disabled>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="fee" class="col-sm-2 control-label">提现金额(单位:元)</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="fee" name="fee" placeholder="提现金额">
+		</div>
+	</div>
+
+	<div class="clearfix form-actions">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-info"><i class="ace-icon fa fa-check bigger-110"></i>提交</button>
+			<a href="{{urlfor "AgencyController.MyCashList"}}" class="btn btn-default"><i class="ace-icon fa fa-reply bigger-110"></i>返回</a>
+		</div>
+	</div>
+</form>

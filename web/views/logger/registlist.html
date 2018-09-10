@@ -1,0 +1,66 @@
+<div class="row">
+	<div class="col-xs-12">
+	</div>
+</div>
+		
+<div class="space-4"></div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-inline" method="post" action="{{urlfor "LoggerController.RegistList"}}">
+			<input type="hidden" name="status" value="{{.status}}" />
+			<div class="input-group input-group-sm">
+				<input type="text" id="start_date" name="start_date" value="{{.startDate}}" class="form-control" />
+				<span class="input-group-addon">
+					<i class="ace-icon fa fa-calendar"></i>
+				</span>
+			</div>
+			<div class="input-group input-group-sm">
+				<input type="text" id="end_date" name="end_date" value="{{.endDate}}" class="form-control" />
+				<span class="input-group-addon">
+					<i class="ace-icon fa fa-calendar"></i>
+				</span>
+			</div>
+			<div class="input-group input-group-sm">
+				<input type="text" id="userid" name="userid" value="{{.userid}}" class="form-control" placeholder="玩家ID" />
+        <span class="input-group-addon">
+          <i class="ace-icon fa fa-users"></i>
+        </span>
+			</div>
+			<div class="input-group input-group-sm">
+				<button type="submit" class="btn">查询</button>
+			</div>
+		</div>
+	</div>
+		</form>
+		<div class="space-4"></div>
+
+
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+			<tr>
+				<th>注册时间</th>
+				<th>玩家ID</th>
+				<th>昵称</th>
+				<th>注册IP</th>
+			</tr>
+			</thead>
+      <tbody>
+			{{range $k, $v := .list}}
+				<tr>
+					<td>{{date $v.Ctime "Y-m-d H:i:s"}}</td>
+					<td>{{$v.Userid}}</td>
+					<td>{{$v.Nickname}}</td>
+					<td>{{$v.Ip}}</td>
+					</td>
+				</tr>
+			{{end}}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="10">{{str2html .pageBar}}</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>

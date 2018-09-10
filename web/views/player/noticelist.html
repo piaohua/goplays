@@ -1,0 +1,109 @@
+<div class="row">
+	<div class="col-xs-12">
+	<a href="{{urlfor "PlayerController.NoticeAdd"}}" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> 添加公告</a>
+	</div>
+</div>
+
+<div class="space-4"></div>
+								
+<div class="row">
+	<div class="col-xs-12">
+	
+	<div class="tabbable">
+		<ul class="nav nav-tabs" id="list-tab">
+			<li {{if eq .status 0}}class="active"{{end}}>
+				<a href="{{urlfor "PlayerController.NoticeList" "status" 0}}">未过期</a>
+			</li>
+			<li {{if eq .status 1}}class="active"{{end}}>
+				<a href="{{urlfor "PlayerController.NoticeList" "status" 1}}">已过期</a>
+			</li>
+		</ul>
+	
+		<div class="tab-content">
+		
+		<div class="row">
+			<div class="col-xs-12">
+				<form class="form-inline" method="post" action="{{urlfor "PlayerController.NoticeList"}}">
+				<input type="hidden" name="status" value="{{.status}}" />
+					<div class="input-group input-group-sm">
+						<input type="text" id="start_date" name="start_date" value="{{.startDate}}" class="form-control" />
+						<span class="input-group-addon">
+							<i class="ace-icon fa fa-calendar"></i>
+						</span>
+					</div>
+					<div class="input-group input-group-sm">
+						<input type="text" id="end_date" name="end_date" value="{{.endDate}}" class="form-control" />
+					<span class="input-group-addon">
+						<i class="ace-icon fa fa-calendar"></i>
+					</span>
+					</div>
+					<div class="input-group input-group-sm">
+						<button type="submit" class="btn">查询</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="space-4"></div>
+
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+			<tr>
+				<th>创建时间</th>
+				<th>过期时间</th>
+				<th>分包类型</th>
+				<th>是否置顶</th>
+				<th>消息类型</th>
+				<th>操作类型</th>
+				<th>次数</th>
+				<th>内容</th>
+				<th>操作</th>
+			</tr>
+			</thead>
+			<tbody>
+			{{range $k, $v := .list}}
+				<tr>
+					<td>{{date $v.Ctime "Y-m-d H:i:s"}}</td>
+					<td>{{date $v.Etime "Y-m-d H:i:s"}}</td>
+          <td>{{$v.Atype}}</td>
+					<td>{{if eq $v.Top 1}}
+          <span class="text-success bigger-110 yellow">是</span>
+          {{else}}
+          <span class="text-warning bigger-110 grey">否</span>
+          {{end}}</td>
+					<td>{{if eq $v.Rtype 1}}
+          <span class="text-success bigger-110 green">活动公告</span>
+          {{else if eq $v.Rtype 2}}
+          <span class="text-warning bigger-110 red">广播消息</span>
+          {{end}}</td>
+					<td>{{if eq $v.Acttype 1}}
+          <span class="text-success bigger-110 green">支付消息</span>
+          {{else if eq $v.Acttype 2}}
+          <span class="text-warning bigger-110 green">活动消息</span>
+          {{else if eq $v.Acttype 0}}
+          <span class="text-warning bigger-110 green">显示消息</span>
+          {{end}}</td>
+					<td>{{$v.Num}}</td>
+					<td>{{$v.Content}}</td>
+					<td>
+					<a href="{{urlfor "PlayerController.Notice" "id" $v.Id}}">发布</a> |
+					<a href="{{urlfor "PlayerController.NoticeDel" "id" $v.Id}}">移除</a> |
+          </td>
+				</tr>
+			{{end}}
+			
+			{{if eq .count 0}}
+				<tr>
+					<td colspan="20">暂无记录...</td>
+				</tr>
+			{{end}}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="10">{{str2html .pageBar}}</td>
+				</tr>
+			</tfoot>
+		</table>
+		</div>
+	</div>
+	</div>
+</div>

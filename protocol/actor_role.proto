@@ -1,0 +1,206 @@
+syntax = "proto3";
+package pb;
+import "github.com/AsynkronIT/protoactor-go/actor/protos.proto";
+import "game_code.proto";
+import "pub_module.proto";
+
+//玩家行为操作
+
+//登录设置连接
+message SetLogin {
+    actor.PID Sender = 1;
+}
+
+message SetLogined {
+    actor.PID DbmsPid = 1;
+    actor.PID RoomPid = 2;
+    actor.PID RolePid = 3;
+    actor.PID HallPid = 4;
+}
+
+//登录大厅
+message LoginHall {
+    string Userid = 1;
+    string NodeName = 2;
+}
+
+message LoginedHall {
+    ErrCode error = 1 ;// 错误码
+}
+
+//登录成功
+message Login {
+    string Userid = 1;
+}
+
+message Logined {
+    bytes Data = 3;
+}
+
+//别处登录
+message LoginElse {
+    string Userid = 1;
+}
+
+message LoginedElse {
+    string Userid = 1;
+}
+
+//登出
+message Logout {
+    actor.PID Sender = 1;
+    string Userid = 2;
+    //string Data = 3;
+}
+
+message Logouted {
+    string Message = 1;
+}
+
+//同步数据,(登录时,变更时)
+message SyncUser {
+    string Userid = 1;
+    bytes Data = 2;
+}
+
+//同步变动货币数据
+message ChangeCurrency {
+    string Userid = 1;
+    int32 Type = 2;//变动类型
+    int64 Coin = 3;//变动金币数量
+    int64 Diamond = 4;//变动钻石数量
+    int64 Chip = 5;//变动筹码数量
+    int64 Card = 6;//变动房卡数量
+    int64 Money = 7;//变动充值数量
+}
+
+//房间离线同步结算变动货币数据
+message OfflineCurrency {
+    string Userid = 1;
+    int32 Type = 2;//变动类型
+    int64 Coin = 3;//变动金币数量
+    int64 Diamond = 4;//变动钻石数量
+    int64 Chip = 5;//变动筹码数量
+    int64 Card = 6;//变动房卡数量
+    int64 Money = 7;//变动充值数量
+}
+
+//同步变动货币数据(充值或后台操作等)
+message PayCurrency {
+    string Userid = 1;
+    int32 Type = 2;//变动类型
+    int64 Coin = 3;//变动金币数量
+    int64 Diamond = 4;//变动钻石数量
+    int64 Chip = 5;//变动筹码数量
+    int64 Card = 6;//变动房卡数量
+    int64 Money = 7;//变动充值数量
+}
+
+////获取数据
+//message GetUserid {
+//    actor.PID Sender = 1;
+//}
+//
+//message GotUserid {
+//    string Userid = 1;
+//}
+
+////获取唯一id
+//message GetUniqueid {
+//    actor.PID Sender = 1;
+//}
+//
+//message GotUniqueid {
+//    string Uniqueid = 1;
+//}
+
+//登录(验证登录)
+message RoleLogin {
+    string Phone    = 1; //手机
+    string Password = 2; //密码 (MD5)
+}
+
+message RoleLogined {
+    string Userid = 1;
+    ErrCode Error  = 2 ;// 错误码
+}
+
+//注册(验证注册)
+message RoleRegist {
+    string Nickname = 1;//昵称
+    string Phone    = 2;//手机号
+    string Password = 3;//密码(md5)
+    string Smscode  = 4;//验证码
+    string Safetycode  = 5;//安全码
+}
+
+message RoleRegisted {
+    string Userid = 1;
+    ErrCode Error  = 2 ;// 错误码
+}
+
+//登录(验证登录)
+message WxLogin {
+    string Wxuid = 1;
+    string Nickname = 2;
+    string Photo = 3;
+    uint32 Sex = 4;
+}
+
+message WxLogined {
+    string Userid = 1;
+    bool IsRegist = 2;
+    ErrCode error  = 3 ;// 错误码
+}
+
+//玩家信息
+message GetUserData {
+    string Userid = 1;
+}
+
+message GotUserData {
+    UserData data = 1;
+    TopInfo info = 2;
+    ErrCode error = 3 ;// 错误码
+}
+
+//验证码注册
+message SmscodeRegist {
+    uint32 Type  = 1;//1注册,2删除,3查询
+    string Phone    = 2;//手机号
+    string Smscode  = 3;//验证码
+    int64 Expired  = 4;//验证码有效期
+    string Ipaddr  = 5;//ipaddr
+}
+
+message SmscodeRegisted {
+    string Smscode  = 1;//验证码
+    ErrCode Error  = 2 ;// 错误码
+}
+
+//绑定手机
+message RoleBuild {
+    string Nickname = 1;//昵称
+    string Phone    = 2;//手机号
+    string Password = 3;//密码(md5)
+    string Smscode  = 4;//验证码
+    string Safetycode  = 5;//安全码
+}
+
+message RoleBuilded {
+    string Userid = 1;
+    ErrCode Error  = 2 ;// 错误码
+}
+
+//游客登录(验证登录)
+message TouristLogin {
+    string Account  = 1; //手机
+    string Password = 2; //密码 (MD5)
+    string Registip = 3; //注册ip
+}
+
+message TouristLogined {
+    string Userid = 1;
+    bool IsRegist = 2;
+    ErrCode Error  = 3 ;// 错误码
+}

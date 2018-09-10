@@ -1,0 +1,76 @@
+<div class="row">
+	<div class="col-xs-12">
+	<a href="{{urlfor "PlayerController.VipAdd"}}" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> 添加VIP</a>
+	</div>
+</div>
+
+<div class="space-4"></div>
+	
+<div class="row">
+  <div class="col-xs-12">
+    <form class="form-inline" method="post" action="{{urlfor "PlayerController.VipList"}}">
+      <input type="hidden" name="status" value="{{.status}}" />
+      <div class="input-group input-group-sm">
+        <input type="text" id="start_date" name="start_date" value="{{.startDate}}" class="form-control" />
+        <span class="input-group-addon">
+          <i class="ace-icon fa fa-calendar"></i>
+        </span>
+      </div>
+      <div class="input-group input-group-sm">
+        <input type="text" id="end_date" name="end_date" value="{{.endDate}}" class="form-control" />
+        <span class="input-group-addon">
+          <i class="ace-icon fa fa-calendar"></i>
+        </span>
+      </div>
+      <div class="input-group input-group-sm">
+        <button type="submit" class="btn">查询</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="space-4"></div>
+
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+			<tr>
+				<th>ID</th>
+				<th>VIP等级</th>
+				<th>VIP充值</th>
+				<th>VIP赠送</th>
+				<th>抽奖次数</th>
+				<th>踢人次数</th>
+				<th>创建时间</th>
+				<th>操作</th>
+			</tr>
+			</thead>
+			<tbody>
+			{{range $k, $v := .list}}
+				<tr>
+					<td>{{$v.Id}}</td>
+					<td>{{$v.Level}}</td>
+					<td>{{$v.Number}}元</td>
+					<td>{{$v.Pay}}</td>
+					<td>{{$v.Prize}}</td>
+					<td>{{$v.Kick}}</td>
+					<td>{{date $v.Ctime "Y-m-d H:i:s"}}</td>
+					<td>
+					<a href="{{urlfor "PlayerController.Vip" "id" $v.Id}}">发布</a> |
+					<a href="{{urlfor "PlayerController.VipDel" "id" $v.Id}}">移除</a> |
+          </td>
+				</tr>
+			{{end}}
+			
+			{{if eq .count 0}}
+				<tr>
+					<td colspan="20">暂无记录...</td>
+				</tr>
+			{{end}}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="10">{{str2html .pageBar}}</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,58 @@
+
+<div class="alert alert-warning alert-dismissible hide" role="alert"></div>
+
+<form class="form-horizontal ajax-form" method="post" action="{{urlfor "AgencyController.AgencyAdd"}}">
+	
+	<div class="form-group">
+		<label for="username" class="col-sm-2 control-label">后台账号</label>
+		<div class="col-sm-3">
+      <input type="text" class="form-control" id="username" name="username" placeholder="后台账号">
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="userid" class="col-sm-2 control-label">游戏内ID</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="userid" name="userid">
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="phone" class="col-sm-2 control-label">手机号码</label>
+		<div class="col-sm-3">
+      <input type="text" class="form-control" id="phone" name="phone" placeholder="11位手机号">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="agent" class="col-sm-2 control-label">代理ID</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="agent" name="agent">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="level" class="col-sm-2 control-label">代理级别</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="level" name="level" value="1" disabled>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="email" class="col-sm-2 control-label">邮箱地址</label>
+		<div class="col-sm-3">
+      <input type="text" class="form-control" id="email" name="email" placeholder="xxx@qq.com">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="weixin" class="col-sm-2 control-label">微信ID</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="weixin" name="weixin" value="">
+		</div>
+		<div class="help-block col-sm-8 col-sm-reset inline">微信ID,不是微信昵称</div>
+	</div>
+
+	<div class="clearfix form-actions">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-info"><i class="ace-icon fa fa-check bigger-110"></i>提交</button>
+			<a href="{{urlfor "AgencyController.AgencyList"}}" class="btn btn-default"><i class="ace-icon fa fa-reply bigger-110"></i>返回</a>
+		</div>
+	</div>
+</form>

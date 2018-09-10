@@ -1,0 +1,54 @@
+syntax = "proto3";
+package pb;
+import "game_code.proto";
+import "pub_module.proto";
+
+// 心跳
+message CPing
+{
+    uint32 code = 1;//协议号
+    uint32 time = 2;//时间截
+}
+
+message SPing
+{
+    uint32 code = 1;//协议号
+    uint32 time = 2;//时间截
+    ErrCode error= 3;//错误码 ,0:正常
+}
+
+// 获取玩家的数据
+message CUserData
+{
+    uint32 code   = 1;//协议号
+    string userid = 2;//用户id
+}
+
+message SUserData
+{
+    uint32 code   = 1;//协议号
+    UserData data = 2;
+    TopInfo info = 3;
+    //TODO 是否在房间内,多个房间内下注
+    ErrCode error = 4;//错误码
+}
+
+// 获取虚拟货币
+message CGetCurrency
+{
+    uint32 code = 1;//协议号
+}
+
+message SGetCurrency
+{
+    uint32 code    = 1;//协议号
+    Currency data  = 2;//货币数据
+}
+
+// 推送变更
+message SPushCurrency
+{
+    uint32 code     = 1;//协议号
+    uint32 rtype    = 2;//类型
+    Currency data   = 3;//货币数据
+}

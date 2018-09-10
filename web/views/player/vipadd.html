@@ -1,0 +1,54 @@
+
+<div class="alert alert-warning alert-dismissible hide" role="alert"></div>
+
+<form class="form-horizontal ajax-form" method="post" action="{{urlfor "PlayerController.VipAdd"}}">
+
+	<div class="form-group">
+		<label for="id" class="col-sm-2 control-label">ID</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="id" name="id">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="level" class="col-sm-2 control-label">VIP等级</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="level" name="level">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="number" class="col-sm-2 control-label">VIP充值金额(元)</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="number" name="number">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="pay" class="col-sm-2 control-label">赠送百分比(0~100)</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="pay" name="pay">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="prize" class="col-sm-2 control-label">抽奖次数</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="prize" name="prize">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="kick" class="col-sm-2 control-label">经典场踢人次数</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="kick" name="kick">
+		</div>
+	</div>
+
+	<div class="clearfix form-actions">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-info"><i class="ace-icon fa fa-check bigger-110"></i>提交</button>
+			<a href="{{urlfor "PlayerController.VipList"}}" class="btn btn-default"><i class="ace-icon fa fa-reply bigger-110"></i>返回</a>
+		</div>
+	</div>
+</form>

@@ -1,0 +1,203 @@
+syntax = "proto3";
+package pb;
+
+// 房间基础数据
+message HuiYinRoomInfo
+{
+    HuiYinGameInfo info  =1;//游戏信息
+    uint32 num    =2;//房间内人数
+    uint32 state  =3;//房间状态
+    uint32 timer  =4;//切换下个状态剩余时间(秒)
+    string expect =5;//上期期号
+    string opencode =6;//上期开奖结果
+    repeated uint32 points = 7;//点数,按位置排序
+}
+
+// 房间数据
+message HuiYinRoom
+{
+    HuiYinGameInfo info  =1;//游戏信息
+    uint32 num    =2;//房间人数
+}
+
+// 游戏数据
+message HuiYinGame
+{
+    uint32 gtype  =1;//game type
+    uint32 state  =2;//0准备中,1游戏中,2封盘,3结算
+    int64 timer  =3;//下一期开奖剩余时间(秒)
+    int64 left   =4;//剩余期数
+}
+
+// 房间下注信息
+message HuiYinRoomBets
+{
+    uint32 seat = 1;//位置
+    int64  bets = 2;//位置上下注金额
+}
+
+// 房间牌面信息
+message HuiYinRoomCards
+{
+    uint32 rank = 1;
+    uint32 seat = 2;//房间下注位置
+    repeated uint32 cards = 3;//牌
+    uint32 point = 4;//点数
+}
+
+//开奖结果记录日志
+message Pk10Record {
+    string expect = 1;//期号
+    string opencode = 2;//结果
+    string opentime = 3;//开奖时间
+}
+
+// 下注位置结算数据
+message HuiYinSeatOver
+{
+    uint32 rank = 1;//大小排名
+    uint32 seat = 2;//房间下注位置(1-5)
+    repeated uint32 cards = 3;//牌
+    uint32 point = 4;//点数
+    int64 bets = 5; //位置下注总数量
+    int64 winNum = 6; //位置赢数量
+    int64 refund = 7; //退款
+    int64 cost = 8; //赢家本金
+    repeated HuiYinRoomWins list = 9; //当前位置下每个人输赢
+}
+
+// 下注位置上每个玩家输赢明细(自己和坐下玩家)
+message HuiYinRoomWins
+{
+    string userid =1;//玩家ID
+    uint32 seat   =2;//坐下位置
+    int64  wins   =3;//输赢数量(不含本金和退款)
+    int64  bets   =4;//下注数量
+    int64  refund =5;//退款数量
+}
+
+// 玩家结算数据
+message HuiYinRoomOver
+{
+    string userid  =1; //玩家
+    uint32 seat    =2; //坐下位置
+    int64  bets    =3; //下注总数量
+    int64  cost    =4; //成本返还
+    int64  wins    =5; //输赢数量(赢家不含本金和退款)
+    int64  refund  =6; //退款
+}
+
+// 上庄列表
+message HuiYinDealerList
+{
+    string userid   = 1;  //
+    string nickname = 2;  //
+    string photo    = 3;  //
+    int64  chip     = 4;  //上庄金额
+}
+
+// 玩家个人详细记录数据
+message HuiYinRecords
+{
+    uint32 gtype  = 1;//游戏类型1 niu,2 san,3 jiu
+    uint32 rtype  = 2;//房间类型0免佣,1有佣
+    int64  rest   = 3;//玩家个人剩余总额
+    uint32 num    = 4;//参与人数
+    string expect = 5;//期号
+    string opencode = 6;//开奖结果
+    string opentime = 7;//开奖时间
+    repeated HuiYinRoomCards cards  = 8;//牌面信息
+    repeated HuiYinSeatRecords selfinfo  = 9;//个人详细结果
+    repeated HuiYinWinRecords result  = 10;//全部参与玩家输赢结果
+    string dealer = 11;//庄家
+    uint32 dealerseat = 12;//庄家位置
+}
+
+// 玩家自己个人记录数据
+message HuiYinSeatRecords
+{
+    uint32 seat = 1;//玩家有下注的位置(没有下注就没有记录)
+    int64 bets  = 2;//玩家在位置上下注总额
+    int64 wins  = 3;//玩家在位置输赢总额(不含本金)
+}
+
+// 房间玩家输赢记录数据
+message HuiYinWinRecords
+{
+    string userid = 1;//玩家
+    int64 bets  = 2;//下注总额
+    int64 wins  = 3;//输赢总额(不含本金)
+}
+
+// 记录数据中玩家基本信息
+message HuiYinUserRecords
+{
+    string userid = 1;//玩家
+    string nickname  = 2;//昵称
+    string photo  = 3;//头像
+}
+
+// 房间基础数据
+message HuiYinGameInfo
+{
+    string roomid = 1;//牌局id
+    uint32 gtype  = 2;//game type
+    uint32 rtype  = 3;//room type
+    uint32 ltype  = 4;//lottery type 1 赛车, 2 飞艇
+    string rname  = 5;//room name
+    uint32 count  = 6;//房间限制人数上限
+    uint32 ante   = 7;//房间底分
+    uint32 cost   = 8;//房间抽佣百分比
+    uint32 vip    = 9;//房间vip限制
+    uint32 chip   =10;//房间进入筹码限制
+    bool   deal   =11;//房间是否可以上庄
+    uint32 carry  =12;//房间上庄最小携带筹码限制
+    uint32 down   =13;//房间下庄最小携带筹码限制
+    uint32 top    =14;//房间下庄最大携带筹码限制
+    uint32 sit    =15;//房间内坐下限制
+}
+
+//上局赢家
+message LastWins {
+    string userid   = 1;//用户账号
+    string nickname = 2;//昵称
+    string photo    = 3;//头像
+    int64  chip     = 4;//赢利筹码数量
+    bool  dealer    = 5;//是否是庄家
+}
+
+//房间趋势
+message HuiYinTrend {
+    repeated TrendInfo info = 1;
+}
+
+//趋势
+message TrendInfo {
+    uint32 rank  = 1;//排名(大小排行)
+    uint32 seat  = 2;//位置(门内)
+}
+
+//房间开奖结果
+message RoomOpenResult {
+    string expect = 1;//期号
+    string opencode = 2;//开奖结果
+    string opentime = 3;//开奖时间
+    repeated OpenResult info = 4;
+}
+
+//开牌结果
+message OpenResult {
+    uint32 rank  = 1;//排名(大小排行)
+    uint32 seat  = 2;//位置(门内)
+    uint32 point = 3;//点数
+    repeated uint32 cards = 4;//牌
+}
+
+// 位置下注信息
+message BetInfo
+{
+    string userid = 1;//玩家
+    string nickname  = 2;//昵称
+    string photo  = 3;//头像
+    int64  bets = 4;//位置上下注金额
+}

@@ -1,0 +1,142 @@
+syntax = "proto3";
+package pb;
+import "github.com/AsynkronIT/protoactor-go/actor/protos.proto";
+import "game_code.proto";
+import "pub_huiyin.proto";
+
+////主动获取房间状态更新
+//message HuiYinStateUpdate {
+//    string Roomid = 1;
+//    uint32 State = 2;//状态
+//    uint32 Expect = 3;//
+//    uint32 Codes = 4;//
+//    int64 OpenTimer = 5;//
+//}
+//
+//message HuiYinStateUpdated {
+//    ErrCode error = 1 ;// 错误码
+//}
+
+// 获取游戏开奖时间
+message HuiYinOpenTime
+{
+    actor.PID Sender = 1;
+    string Name = 2;
+}
+
+message HuiYinOpenedTime
+{
+    repeated HuiYinGame list = 1;
+    ErrCode error = 2 ;//错误码
+}
+
+//节点广播游戏状态更新
+message PushDeskState {
+    uint32 State = 1;
+    string Expect = 2;
+    string Opencode = 3;
+    string Opentime = 4;
+    int64 Opentimestamp = 5;
+    int64 Nexttime = 6;
+}
+
+//离线
+message OfflineDesk {
+    string Userid = 1;
+}
+
+//开奖结果记录日志
+message Pk10RecordLog {
+    string Expect = 1;
+    string Opencode = 2;
+    string Opentime = 3;
+    int64 Opentimestamp = 4;
+    string Code = 5;
+}
+
+//输赢趋势记录日志
+message Pk10TrendLog {
+    string Expect = 1;
+    string Opencode = 2;
+    string Opentime = 3;
+    repeated TrendResult Result = 4;
+}
+
+//开牌结果
+message TrendResult {
+    uint32 Rank = 1;
+    uint32 Seat = 2;
+    uint32 Point = 3;
+    bool Win = 4;
+    repeated uint32 Cards = 5;
+}
+
+//房间单局记录日志
+message Pk10GameLog {
+    string Roomid = 1;
+    uint32 Gametype = 2;
+    uint32 Roomtype = 3;
+    uint32 Lotterytype = 4;//彩种类型
+    string Expect = 5;
+    string Opencode = 6;
+    string Opentime = 7;
+    uint32 Num = 8;
+    int64 RobotFee = 9;
+    int64 PlayerFee = 10;
+    int64 FeeNum = 11;
+    int64 BetNum = 12;
+    int64 WinNum = 13;
+    int64 LoseNum = 14;
+    int64 RefundNum = 15;
+    repeated TrendResult Trend = 16; //房间当局趋势
+    repeated ResultRecord Result = 17;//玩家明细
+    repeated FeeResult Record = 18;//玩家抽佣明细
+    repeated FeeDetails Details = 19;//位置上玩家抽佣明细
+}
+
+//玩家总结果
+message ResultRecord {
+    string Userid = 1;
+    int64 Bets = 2;//玩家下注额
+    int64 Wins = 3;//玩家输赢(赢家不含本金和退款)
+    int64 Refund = 4;//退款
+}
+
+//玩家抽佣明细
+message FeeResult {
+    string Userid = 1;
+    int64 Fee = 2;//抽佣数量
+}
+
+//位置抽佣明细
+message FeeDetails {
+    uint32 Seat = 1;
+    int64 Fee = 2;//抽佣数量
+    repeated FeeResult Record = 3;//位置上玩家明细
+}
+
+//个人单局记录
+message Pk10UseridLog {
+    string Roomid = 1;
+    string Userid = 2;
+    bool Robot = 3;
+    uint32 Gametype = 4;//游戏类型
+    uint32 Roomtype = 5;//房间类型
+    uint32 Lotterytype = 6;//彩种类型
+    string Expect = 7;
+    int64 Bets = 8;//总下注
+    int64 Profits = 9;//最终输赢(赢家不含本金)
+    int64 Fee = 10;//抽佣
+    int64 Rest = 11;//剩余
+    repeated UseridDetails Details = 12;//个人下注明细
+    string dealer = 13;//庄家
+    uint32 dealerseat = 14;//庄家位置
+}
+
+//个人位置上结果
+message UseridDetails {
+    uint32 Seat = 1; //位置
+    int64 Bets = 2; //下注额
+    int64 Wins = 3;//输赢结果(赢家不含本金和退款)
+    int64 Refund = 4;//退款结果
+}

@@ -1,0 +1,198 @@
+syntax = "proto3";
+package pb;
+import "game_code.proto";
+import "pub_huiyin.proto";
+import "pub_module.proto";
+
+// 进入房间
+message CHuiYinEnterRoom
+{
+    uint32 code = 1;//协议号
+    string roomid = 2;//房间id
+    uint32 gtype = 3;//游戏类型
+    uint32 rtype = 4;//房间类型
+}
+
+message SHuiYinEnterRoom
+{
+    uint32    code     = 1;//协议号
+    HuiYinRoomInfo roominfo = 2;//房间动态数据
+    repeated HuiYinRoomBets seatbets = 3;//位置总下注额
+    repeated HuiYinRoomBets rolebets = 4;//玩家个人位置下注数额
+    repeated RoomUser userinfo = 5;//坐下位置玩家数据
+    SHuiYinPushDealer dealerinfo    = 6;//庄家信息
+    ErrCode error    = 7;//错误码
+}
+
+// 其他玩家进入房间
+message SHuiYinCamein
+{
+    uint32   code     = 1;//协议号
+    UserData userdata = 2;//玩家的信息
+}
+
+//房间内玩家列表(旁观玩家)
+message CHuiYinRoomRoles
+{
+    uint32 code    = 1;//协议号
+}
+
+message SHuiYinRoomRoles
+{
+    uint32 code    = 1;//协议号
+    repeated RoomUser list = 2;//旁观玩家数据
+    ErrCode error  = 3;//错误码
+}
+
+// 离开房间
+message CHuiYinLeave
+{
+    uint32 code = 1;//协议号
+    string userid = 2; //玩家id
+}
+
+message SHuiYinLeave
+{
+    uint32 code   = 1; //协议号
+    uint32 seat   = 2; //玩家的座位号
+    string userid = 3; //玩家id
+    ErrCode error = 4; //错误码
+}
+
+//4.玩家入坐,站起
+message CHuiYinSit
+{
+    uint32 code = 1;//协议号
+    bool  state = 2;//true坐下,false站起
+    uint32 seat = 3;//位置,8个位置(1~8)
+}
+
+message SHuiYinSit
+{
+    uint32 code     = 1;//协议号
+    bool   state    = 2;//true坐下,false站起
+    uint32 seat     = 3;//位置
+    string userid   = 4;//
+    string nickname = 5;//
+    string photo    = 6;//
+    int64  chip     = 7;//筹码
+    ErrCode error   = 8;//错误码
+}
+
+//玩家下注
+message CHuiYinRoomBet
+{
+    uint32 code    = 1;//协议号
+    uint32 seatbet = 2;//下注位置
+    uint32 value   = 3;//提交相应的值
+}
+
+message SHuiYinRoomBet
+{
+    uint32 code   = 1;//协议号
+    uint32 seat   = 2;//位置,下注者位置(1-8)
+    uint32 beseat = 3;//下注的位置2天，3地，4玄，5黄
+    uint32 value  = 4;//下注数量
+    string userid = 5;//下注玩家id
+    int64  chip   = 6;//下注位置上的总数
+    int64  bets   = 7;//下注位置上个人的总数
+    ErrCode error = 8;//错误码
+}
+
+//选择上庄,下庄
+message CHuiYinDealer
+{
+    uint32 code   = 1;//协议号
+    uint32 state  = 2;//0下庄 1上庄 2补庄
+    uint32 num    = 3;//上庄金额
+}
+
+message SHuiYinDealer
+{
+    uint32 code     = 1;//协议号
+    uint32 state    = 2;//0下庄 1上庄 2补庄
+    string dealer   = 3;//庄家
+    string userid   = 4;//申请上庄玩家
+    string nickname = 5;//昵称
+    int64  num      = 6;//上/下庄金额
+    bool   down     = 7;//结束后庄家是否下庄
+    ErrCode error   = 8;//错误码
+}
+
+//上庄列表
+message CHuiYinDealerList
+{
+    uint32 code     = 1;//协议号
+}
+
+message SHuiYinDealerList
+{
+    uint32 code     = 1;//协议号
+    repeated HuiYinDealerList list = 2;//上庄列表
+    ErrCode error    = 3;//错误码
+}
+
+//庄信息
+message SHuiYinPushDealer
+{
+    uint32 code = 1;//协议号
+    string dealer = 2;//庄家id
+    uint32 seat = 3;//庄家位置
+    int64  carry = 4;//庄家携带
+    repeated HuiYinDealerList list = 5;//上庄列表
+    string nickname = 6;//庄家昵称
+    bool down = 7;//结束后庄家是否下庄
+}
+
+//成为庄家
+message SHuiYinPushBeDealer
+{
+    uint32 code = 1;//协议号
+    string dealer = 2;//庄家id
+    uint32 seat = 3;//庄家位置
+    int64  carry = 4;//庄家携带
+    repeated HuiYinDealerList list = 5;//上庄列表
+    string nickname = 6;//庄家昵称
+}
+
+// 桌子状态
+message CHuiYinDeskState
+{
+    uint32 code     = 1;//协议号
+}
+
+message SHuiYinDeskState
+{
+    uint32 code     = 1;//协议号
+    uint32 state    = 2;//0准备中,1游戏中,2封盘,3结算
+    int64 nexttime  = 3;//下个状态更新时间
+}
+
+// 结算广播接口，游戏结束
+message SHuiYinGameover
+{
+    uint32 code   = 1;//协议号
+    string dealer = 2;//庄家id
+    int64  carry  = 3; //庄家携带数量
+    string expect = 4;//期号
+    repeated HuiYinRoomOver data = 5;//玩家结算明细(只包含坐下的和自己的)
+    repeated HuiYinSeatOver seats = 6;//位置结算明细
+    string opencode = 7;//开奖结果
+    uint32 dealerSeat = 8;//庄家位置
+}
+
+// 桌子位置下注信息
+message CHuiYinDeskBetInfo
+{
+    uint32 code     = 1;//协议号
+    uint32 seat     = 2;//位置
+}
+
+message SHuiYinDeskBetInfo
+{
+    uint32 code     = 1;//协议号
+    uint32 seat     = 2;//位置
+    int64  bets     = 3;//位置总投注
+    repeated BetInfo list    = 4;//位置投注明细
+    ErrCode error   = 5;//错误码
+}

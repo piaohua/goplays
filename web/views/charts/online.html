@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-xs-12">
+  </div>
+</div>
+
+<div class="space-4"></div>
+
+<div class="row">
+  <div class="col-xs-12 center">
+
+    <!-- A simple implementation of Area 2D chart showing daily trend of liquor sales for the last week -->
+    <div id="chart-container">FusionCharts will render here</div>
+    <input type="hidden" id="data" name="data" value="{{.data}}" />
+
+    <script src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+    <script>
+      var str = document.getElementById('data').value;
+      var data = JSON.parse(str);
+    </script>
+    <script>
+      FusionCharts.ready(function () {
+        var salesChart = new FusionCharts({
+          type: 'area2d',
+          renderAt: 'chart-container',
+          width: '600',
+          height: '300',
+          dataFormat: 'json',
+          dataSource: {
+            "chart": {
+              "caption": "在线统计",
+              "subCaption": "最近数据",
+              "xAxisName": "时间",
+              "yAxisName": "在线人数",
+              "numberPrefix": "",
+              "paletteColors": "#0075c2",
+              "bgColor": "#ffffff",
+              "showBorder": "0",
+              "showCanvasBorder": "0",
+              "plotBorderAlpha": "10",
+              "usePlotGradientColor": "0",
+              "plotFillAlpha": "50",
+              "showXAxisLine": "1",
+              "axisLineAlpha": "25",
+              "divLineAlpha": "10",
+              "showValues": "1",
+              "showAlternateHGridColor": "0",
+              "captionFontSize": "14",
+              "subcaptionFontSize": "14",
+              "subcaptionFontBold": "0",
+              "toolTipColor": "#ffffff",
+              "toolTipBorderThickness": "0",
+              "toolTipBgColor": "#000000",
+              "toolTipBgAlpha": "80",
+              "toolTipBorderRadius": "2",
+              "toolTipPadding": "5"
+            },
+
+            "data": data
+          }
+        })
+          .render();
+      });
+    </script>
+  </div>
+</div>

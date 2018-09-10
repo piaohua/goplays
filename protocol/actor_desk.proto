@@ -1,0 +1,122 @@
+syntax = "proto3";
+package pb;
+import "github.com/AsynkronIT/protoactor-go/actor/protos.proto";
+import "game_code.proto";
+
+//桌子操作
+
+//匹配桌子
+message MatchDesk {
+    uint32 Rtype = 1;//桌子类型
+    string Name = 2;//节点名称
+    string Roomid = 3;//房间id
+    uint32 Gtype = 4;//游戏类型
+}
+
+message MatchedDesk {
+    actor.PID Desk = 1;//桌子进程
+}
+
+////创建桌子
+//message CreateDesk {
+//    bytes Data = 1;//桌子数据
+//}
+//
+//message CreatedDesk {
+//    bytes Data = 1;//桌子数据
+//    ErrCode error = 2 ;// 错误码
+//}
+//
+////创建桌子进程
+//message SpawnDesk {
+//    bytes Data = 1;
+//}
+//
+//message SpawnedDesk {
+//    actor.PID Desk = 1;
+//}
+
+//生成桌子
+message GenDesk {
+    uint32 Rtype = 1;//类型
+    uint32 Gtype = 2;
+}
+
+message GenedDesk {
+    string Roomid = 1;//桌子id
+    string Code = 2;//邀请码
+    ErrCode error = 3 ;// 错误码
+}
+
+//创建桌子进程
+message AddDesk {
+    actor.PID Desk = 1;
+    string Roomid = 2;
+    uint32 Rtype = 3;
+    uint32 Gtype = 4;
+    bytes Data = 5;//桌子数据
+}
+
+message AddedDesk {
+    ErrCode error = 1 ;// 错误码
+}
+
+//关闭桌子进程
+message CloseDesk {
+    string Roomid = 1;
+    uint32 Rtype = 2;
+    uint32 Gtype = 3;
+    string Code = 4;
+}
+
+message ClosedDesk {
+    ErrCode error = 1 ;// 错误码
+}
+
+//进入房间
+message EnterDesk {
+    actor.PID Sender = 1; //玩家进程
+    bytes Data = 2;//玩家数据
+}
+
+message EnteredDesk {
+    string Roomid = 1;
+    uint32 Rtype = 2;
+    uint32 Gtype = 3;
+    string Userid = 4;
+    ErrCode error = 5 ;// 错误码
+}
+
+//加入桌子
+message JoinDesk {
+    actor.PID Sender = 1; //玩家进程
+    string Roomid = 2;
+    uint32 Rtype = 3;
+    uint32 Gtype = 4;
+    string Userid = 5;
+}
+
+message JoinedDesk {
+    ErrCode error = 1 ;// 错误码
+}
+
+//离开房间
+message LeaveDesk {
+    string Roomid = 1;
+    string Userid = 2;
+    uint32 Type = 3;
+}
+
+message LeftDesk {
+    ErrCode error = 1 ;// 错误码
+}
+
+//打印桌子信息
+message PrintDesk {
+}
+
+//记录
+message SetRecord {
+	//1胜利 //-1输了 //0荒庄
+    int32 Rtype = 1;
+}
